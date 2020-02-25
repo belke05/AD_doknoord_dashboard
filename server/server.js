@@ -33,7 +33,8 @@ app.use(
 
 // Set the public folder to "~/client/build/"
 // Example: http://localhost:5000/favicon.ico => Display "~/client/build/favicon.ico"
-app.use(express.static(path.join(__dirname, "~/client/build")));
+console.log(path.join(__dirname, "../client/build"));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/api/orders", require("./routes/orders.js"));
 
@@ -46,6 +47,7 @@ app.use("/api/*", (req, res, next) => {
 });
 
 // we can send our entry html file in any other case
+console.log(path.join(__dirname, "../client/build/index.html"));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
