@@ -6,11 +6,11 @@
   "scripts": {
     "preinstall": "echo --- preinstall --- && cd server && npm install && cd ../client && npm install && npm run build && cd ..",
     "start": "echo --- start --- && cd server && npm run start",
-    "server": "cd server && npm run dev",
-    "client": "cd client && npm start"
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm start"
   },
   "engines": {
-    "node": "8.9.4"
+    "node": "12.11.1"
   },
   "keywords": [],
   "author": "",
