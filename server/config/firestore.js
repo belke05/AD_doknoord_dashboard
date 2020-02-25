@@ -1,5 +1,4 @@
 const path = require("path");
-
 console.log(process.env.private_key, "private keyyy");
 
 const firestore_config = {
@@ -17,7 +16,7 @@ const service_account = {
   type: "service_account",
   project_id: "delhaizedoknoord",
   private_key_id: process.env.private_key_id,
-  private_key: process.env.private_key,
+  private_key: process.env.private_key.replace(/\\n/g, "\n"),
   client_email:
     "firebase-adminsdk-jjaz1@delhaizedoknoord.iam.gserviceaccount.com",
   client_id: "112129576451566504758",
