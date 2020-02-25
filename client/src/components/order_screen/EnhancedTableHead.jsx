@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Checkbox from "@material-ui/core/Checkbox";
+
+import {
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+  Checkbox
+} from "../../modules/material";
 
 const headCells = [
   { id: "lastName", numeric: false, disablePadding: true, label: "naam" },

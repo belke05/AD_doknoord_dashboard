@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
+
 import { readableDate } from "../utils/functions";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
 import Sandwich_List from "./Sandwich_list";
-import Checkbox from "@material-ui/core/Checkbox";
+
+import { Button, TableCell, TableRow, Checkbox } from "../../modules/material";
 
 export default function Order({
   sandwiches,

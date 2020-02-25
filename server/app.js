@@ -38,6 +38,7 @@ console.log(path.join(__dirname, "../client/build"));
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/api/orders", require("./routes/orders.js"));
+app.use("/api/sandwiches", require("./routes/sandwiches.js"));
 
 // create an error if we have an api route that does not
 // seem to find an route

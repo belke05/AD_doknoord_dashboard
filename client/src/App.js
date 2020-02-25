@@ -1,7 +1,9 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import OrderHandler from "./components/hoc/OrderHandler";
-import PersistentDrawerLeft from "./components/navigation";
+import EditPictures from "./components/pages/EditPictures";
+import SandwichHandler from "./components/hoc/SandwichHandler";
+import PersistentDrawerLeft from "./components/Navigation";
 
 function App() {
   return (
@@ -9,6 +11,23 @@ function App() {
       <PersistentDrawerLeft>
         <Switch>
           <Route path="/" exact component={OrderHandler} />
+          <Route
+            path="/overview/orders/dishes"
+            exact
+            component={OrderHandler}
+          />
+          <Route
+            path="/overview/orders/sandwiches"
+            exact
+            component={OrderHandler}
+          />
+          <Route
+            path="/edit/orders/sandwiches"
+            exact
+            component={SandwichHandler}
+          />
+          <Route path="/edit/orders/dishes" exact component={OrderHandler} />
+          <Route path="/edit/pictures" component={EditPictures} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </PersistentDrawerLeft>

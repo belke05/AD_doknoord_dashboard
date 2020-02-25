@@ -1,0 +1,7 @@
+{
+  "bestellingen broodjes": "overview/orders/sandwiches",
+  "bestellingen schotels": "overview/orders/dishes",
+  "aanpassen broodjes": "edit/orders/sandwiches",
+  "aanpassen schotels": "edit/orders/dishes",
+  "aanpassen afbeeldingen": "edit/pictures"
+}

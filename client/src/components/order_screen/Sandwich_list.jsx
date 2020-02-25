@@ -1,19 +1,17 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { createIngredientsString } from "../utils/functions";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Divider from "@material-ui/core/Divider";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    padding: "2%",
-    backgroundColor: theme.palette.background.paper
-  }
-}));
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  makeStyles
+} from "../../modules/material";
+
+import { enchancedTableStyle } from "../../styles/material/makeStyles";
+
+const useStyles = makeStyles(enchancedTableStyle);
 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
@@ -23,7 +21,16 @@ export default function Sandwich_List({ sandwich }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      style={{
+        width: "300px",
+        margin: "5px 10px",
+        padding: "5px",
+        border: "1px solid black",
+        borderRadius: "5%"
+      }}
+    >
       <List component="nav" aria-label="main sandwich_overview">
         <ListItem>
           <ListItemText primary={sandwich.name} />

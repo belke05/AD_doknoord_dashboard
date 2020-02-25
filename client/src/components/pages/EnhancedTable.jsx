@@ -1,42 +1,25 @@
 import React from "react";
-import api from "../../api/orders";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import Order from "../order_screen/Order";
-import TableContainer from "@material-ui/core/TableContainer";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import { getComparator, stableSort, filterOutIds } from "../utils/functions";
-import EnhancedTableHead from "../order_screen/EnhancedTableHead";
-import EnhancedTableToolbar from "../order_screen/EnhancedTableToolbar";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%"
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2)
-  },
-  table: {
-    minWidth: 750
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: "rect(0 0 0 0)",
-    height: 1,
-    margin: -1,
-    overflow: "hidden",
-    padding: 0,
-    position: "absolute",
-    top: 20,
-    width: 1
-  }
-}));
+import EnhancedTableToolbar from "../order_screen/EnhancedTableToolbar";
+import EnhancedTableHead from "../order_screen/EnhancedTableHead";
+import Order from "../order_screen/Order";
+import api from "../../api/orders";
+
+import { getComparator, stableSort, filterOutIds } from "../utils/functions";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TablePagination,
+  Paper,
+  FormControlLabel,
+  Switch,
+  makeStyles
+} from "../../modules/material";
+
+import { enchancedTableStyle } from "../../styles/material/makeStyles";
+
+const useStyles = makeStyles(enchancedTableStyle);
 
 export default function EnhancedTable(props) {
   const classes = useStyles();
