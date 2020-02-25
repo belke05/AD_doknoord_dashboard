@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon ./server/bin/www.js",
+    "preinstall": "echo --- preinstall --- && cd server && npm install && cd ../client && npm install && npm run build && cd ..",
+    "start": "echo --- start --- && cd server && npm start",
+    "server": "cd ./server && npm run dev",
     "client": "cd ./client && npm start",
     "building": "cd ./client && npm run build"
   },
