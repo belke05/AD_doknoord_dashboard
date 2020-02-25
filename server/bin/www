@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-let app = require("../server");
+let app = require("../app");
 const server = require("http").createServer(app);
 
 server.on("error", error => {
