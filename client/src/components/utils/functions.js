@@ -26,7 +26,30 @@ function stableSort(array, comparator) {
   return stabilizedThis.map(el => el[0]);
 }
 
+const createIngredientsString = ingredients =>
+  ingredients.map(
+    (ingredient, i) => ingredient + (ingredients.length - 1 === i ? "" : " | ")
+  );
+
+function readableDate(isoString) {
+  const date = new Date(isoString);
+  const day = date.getDate();
+  const month = date.getMonth();
+  const uur = date.getHours();
+  const minuten = date.getMinutes();
+  return `op ${day}/${month} om ${uur}:${minuten}`;
+}
+
+function filterOutIds(orders, orderids) {
+  const new_orders = orders.filter(({ id }) => !orderids.includes(id));
+  console.log(new_orders, "new_orders");
+  return new_orders;
+}
+
 module.exports = {
   stableSort,
-  getComparator
+  getComparator,
+  createIngredientsString,
+  readableDate,
+  filterOutIds
 };

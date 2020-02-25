@@ -45,7 +45,7 @@ export default function EnhancedTableToolbar(props) {
           color="inherit"
           variant="subtitle1"
         >
-          {numSelected} selected
+          {numSelected} orders geselecteerd
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle">
@@ -54,7 +54,7 @@ export default function EnhancedTableToolbar(props) {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={props.handleDelete}>
           <IconButton aria-label="delete">
             <DeleteIcon />
           </IconButton>

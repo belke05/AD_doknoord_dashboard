@@ -1,18 +1,18 @@
 import React from "react";
+import api from "../../api/orders";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
+import Order from "../order_screen/Order";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import { getComparator, stableSort } from "../utils/functions";
-import EnhancedTableHead from "./EnhancedTableHead";
-import EnhancedTableToolbar from "./EnhancedTableToolbar";
+import { getComparator, stableSort, filterOutIds } from "../utils/functions";
+import EnhancedTableHead from "../order_screen/EnhancedTableHead";
+import EnhancedTableToolbar from "../order_screen/EnhancedTableToolbar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,8 +55,9 @@ export default function EnhancedTable(props) {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = props.orders.map(n => n.name);
-      setSelected(newSelecteds);
+      const newSelected = props.orders.map(n => n.id);
+      console.log(newSelected, "new selected");
+      setSelected(newSelected);
       return;
     }
     setSelected([]);
@@ -78,7 +79,6 @@ export default function EnhancedTable(props) {
         selected.slice(selectedIndex + 1)
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -95,6 +95,20 @@ export default function EnhancedTable(props) {
     setDense(event.target.checked);
   };
 
+  const handleDelete = () => {
+    api
+      .deleteOrder({ orderIds: selected })
+      .then(info => {
+        const new_orders = filterOutIds(props.orders, info.orders);
+        const new_selected = selected.filter(id => !info.orders.includes(id));
+        props.setOrders(new_orders);
+        setSelected(new_selected);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -104,7 +118,10 @@ export default function EnhancedTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          handleDelete={handleDelete}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -129,41 +146,20 @@ export default function EnhancedTable(props) {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      onClick={event => handleClick(event, row.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.name}
+                    <Order
+                      sandwiches={row.orders}
+                      order={row}
+                      classes={classes}
+                      handleClick={handleClick}
+                      key={row.id}
+                      selectedItems={selected}
                       selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                        {row.lastName}
-                      </TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">{row.pickupDate}</TableCell>
-                      <TableCell align="right">{row.pickupTime}</TableCell>
-                      <TableCell align="right">{row.timeOrder}</TableCell>
-                    </TableRow>
+                      labelId={labelId}
+                      emptyRows={emptyRows}
+                      dense={dense}
+                    ></Order>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
