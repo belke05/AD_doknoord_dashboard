@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import OrderHandler from "./components/hoc/OrderHandler";
 import EditPictures from "./components/pages/EditPictures";
 import SandwichHandler from "./components/hoc/SandwichHandler";

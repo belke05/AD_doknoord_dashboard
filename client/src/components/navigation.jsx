@@ -138,4 +138,6 @@ function PersistentDrawerLeft(props) {
   );
 }
 
-export default withRouter(PersistentDrawerLeft);
+const PersistentDrawerLeftWithRouter = withRouter(PersistentDrawerLeft);
+
+export default PersistentDrawerLeftWithRouter;
