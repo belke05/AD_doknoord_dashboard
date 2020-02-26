@@ -137,6 +137,7 @@ function PersistentDrawerLeft(props) {
     </div>
   );
 }
+console.log("hello");
 
 const PersistentDrawerLeftWithRouter = withRouter(PersistentDrawerLeft);
 
