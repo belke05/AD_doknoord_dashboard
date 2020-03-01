@@ -94,6 +94,10 @@ export default function EnhancedTable(props) {
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
+  if (!props.orders) {
+    return <div>momenteel geen orders</div>;
+  }
+
   const emptyRows =
     rowsPerPage -
     Math.min(rowsPerPage, props.orders.length - page * rowsPerPage);

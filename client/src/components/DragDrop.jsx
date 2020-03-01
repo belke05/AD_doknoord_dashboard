@@ -56,7 +56,7 @@ export default function DragDrop(props) {
     <div
       ref={dragdrop_container}
       className="dragdrop_container"
-      style={{ display: "inline-block", position: "relative" }}
+      style={{ display: "inline-block", position: "absolute" }}
     >
       {dragging && (
         <div

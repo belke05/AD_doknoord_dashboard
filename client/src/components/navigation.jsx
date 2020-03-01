@@ -112,13 +112,15 @@ function PersistentDrawerLeft(props) {
           {[
             "aanpassen broodjes",
             "aanpassen schotels",
-            "aanpassen afbeeldingen"
+            "aanpassen afbeeldingen",
+            "aanpassen teksten"
           ].map((text, index) => (
             <ListItem button key={text} onClick={handleRoute.bind(this, text)}>
               <ListItemIcon>
                 {index === 0 ? <EditIcon /> : null}
                 {index === 1 ? <EditIcon /> : null}
                 {index === 2 ? <EditIcon /> : null}
+                {index === 3 ? <EditIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

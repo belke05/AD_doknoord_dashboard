@@ -4,7 +4,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const cors = require("cors");
 const express = require("express");
 
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
 // const cookieParser = require("cookie-parser");
 
@@ -28,7 +28,7 @@ app.use(
   })
 );
 // app.use(logger('dev'))
-// app.use(bodyParser.json())
+app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(cookieParser())
 
@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/api/orders", require("./routes/orders.js"));
 app.use("/api/sandwiches", require("./routes/sandwiches.js"));
+app.use("/api/uploads", require("./routes/upload.js"));
 
 // create an error if we have an api route that does not
 // seem to find an route
