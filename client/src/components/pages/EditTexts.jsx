@@ -41,7 +41,7 @@ export default function EditTexts() {
       />
       <div className="textedit_btndrop">
         <Button
-          disabled={text_option && new_text.length > 10 ? false : true}
+          disabled={text_option && new_text.length > 5 ? false : true}
           onClick={handleClick}
         >
           verander tekst
