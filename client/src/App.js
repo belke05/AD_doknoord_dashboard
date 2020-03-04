@@ -5,6 +5,7 @@ import EditPictures from "./components/pages/EditPictures";
 import EditTexts from "./components/pages/EditTexts";
 import SandwichHandler from "./components/hoc/SandwichHandler";
 import PersistentDrawerLeft from "./components/navigation";
+import FormCustom from "./components/FormCustom";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/edit/orders/dishes" exact component={OrderHandler} />
           <Route path="/edit/pictures" component={EditPictures} />
           <Route path="/edit/texts" component={EditTexts} />
+          <Route path="/testing" component={FormCustom} />
           <Route render={() => <h2>404</h2>} />
         </Switch>
       </PersistentDrawerLeft>
