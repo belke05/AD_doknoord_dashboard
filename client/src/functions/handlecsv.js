@@ -5,33 +5,73 @@ export default async function(file) {
   const rows = await readXlsxFile(file);
   const middelen = rows.slice(2, 28);
   const andere = rows[28];
-  console.log(rows, "rows");
   let info = {
     datum: rows[0][0].replace("Selectie: ", ""),
     ...betaalmiddelen(middelen),
     ...kaarten(andere),
     ...maaltijdcheques(andere)
   };
-  const rij = new KasBoekRow(...Object.values(info));
-  console.log(rij);
-  return info;
+  const rij = new KasBoekRow(
+    info.datum,
+    info.cash,
+    info.cheq_spec,
+    info.maaltijdcheque,
+    info.cheque_delhaize,
+    info.tegoedbon,
+    info.bon_pub_dll,
+    info.bon_pub_lev,
+    info.publiciteitsbon,
+    info.leeggoedbon,
+    info.ecocheques,
+    info.mobile,
+    info.online_betaling,
+    info.bancontact,
+    info.elec_maaltcheq,
+    info.terugbet_lotto,
+    info.kredietkaart,
+    info.op_krediet,
+    info.andere_totaal,
+    info.andere,
+    info.promo,
+    info.kadobon,
+    info.elec_ecocheques,
+    info.elec_cadeau,
+    info.afronding,
+    info.totaal_lade,
+    info.tegoedbon_crea,
+    info.totaal,
+    info.amex,
+    info.visa,
+    info.mastercard,
+    info.maestro,
+    info.visa_electron,
+    info.sodexo,
+    info.payfair,
+    info.accordenred,
+    info.publiciteitsbon_totaal
+  );
+  return rij;
 }
 
 function betaalmiddelen(betaalmiddel_arr) {
   let middelen = {};
   betaalmiddel_arr.forEach(element => {
-    const naam = element[0].replace(/\ /g, "_").replace(/\./g, "");
+    const naam = element[0]
+      .replace(/\ /g, "_")
+      .replace(/\./g, "")
+      .toLowerCase();
     const waarde = element[2];
     middelen[naam] = waarde;
   });
 
-  middelen.andere =
-    middelen.CHEQ_SPEC +
-    middelen.TEGOEDBON +
-    middelen.ECOCHEQUES +
-    middelen.TERUGBET_LOTTO;
-  middelen.publiciteitsbon =
-    middelen.BON_PUB_DLL + middelen.BON_PUB_LEV + middelen.PUBLICITEITSBON;
+  middelen.andere_totaal =
+    middelen.cheq_spec +
+    middelen.tegoedbon +
+    middelen.ecocheques +
+    middelen.terugbet_lotto;
+  middelen.publiciteitsbon_totaal =
+    middelen.bon_pub_dll + middelen.bon_pub_lev + middelen.publiciteitsbon;
+  console.log("middelen", middelen);
   return middelen;
 }
 

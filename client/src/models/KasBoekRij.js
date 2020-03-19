@@ -1,32 +1,33 @@
 export const KasBoekRow = class {
   constructor(
     datum,
-    CASH,
-    CHEQ_SPEC,
-    MAALTIJDCHEQUE,
-    CHEQUE_DELHAIZE,
-    TEGOEDBON,
-    BON_PUB_DLL,
-    BON_PUB_LEV,
-    PUBLICITEITSBON,
-    LEEGGOEDBON,
-    ECOCHEQUES,
-    MOBILE,
-    ONLINE_BETALING,
-    BANCONTACT,
-    ELEC_MAALTCHEQ,
-    TERUGBET_LOTTO,
-    KREDIETKAART,
-    OP_KREDIET,
-    ANDERE,
-    PROMO,
-    KADOBON,
-    ELEC_ECOCHEQUES,
-    ELEC_CADEAU,
-    AFRONDING,
-    Totaal_lade,
-    TEGOEDBON_CREA,
-    Totaal,
+    cash,
+    cheq_spec,
+    maaltijdcheque,
+    cheque_delhaize,
+    tegoedbon,
+    bon_pub_dll,
+    bon_pub_lev,
+    publiciteitsbon,
+    leeggoedbon,
+    ecocheques,
+    mobile,
+    online_betaling,
+    bancontact,
+    elec_maaltcheq,
+    terugbet_lotto,
+    kredietkaart,
+    op_krediet,
+    andere_totaal,
+    andere,
+    promo,
+    kadobon,
+    elec_ecocheques,
+    elec_cadeau,
+    afronding,
+    totaal_lade,
+    tegoedbon_crea,
+    totaal,
     amex,
     visa,
     mastercard,
@@ -34,35 +35,37 @@ export const KasBoekRow = class {
     visa_electron,
     sodexo,
     payfair,
-    accordenred
+    accordenred,
+    publiciteitsbon_totaal
   ) {
     this.datum = datum;
-    this.CASH = CASH;
-    this.CHEQ_SPEC = CHEQ_SPEC;
-    this.MAALTIJDCHEQUE = MAALTIJDCHEQUE;
-    this.CHEQUE_DELHAIZE = CHEQUE_DELHAIZE;
-    this.TEGOEDBON = TEGOEDBON;
-    this.BON_PUB_DLL = BON_PUB_DLL;
-    this.BON_PUB_LEV = BON_PUB_LEV;
-    this.PUBLICITEITSBON = PUBLICITEITSBON;
-    this.LEEGGOEDBON = LEEGGOEDBON;
-    this.ECOCHEQUES = ECOCHEQUES;
-    this.MOBILE = MOBILE;
-    this.ONLINE_BETALING = ONLINE_BETALING;
-    this.BANCONTACT = BANCONTACT;
-    this.ELEC_MAALTCHEQ = ELEC_MAALTCHEQ;
-    this.TERUGBET_LOTTO = TERUGBET_LOTTO;
-    this.KREDIETKAART = KREDIETKAART;
-    this.OP_KREDIET = OP_KREDIET;
-    this.ANDERE = ANDERE;
-    this.PROMO = PROMO;
-    this.KADOBON = KADOBON;
-    this.ELEC_ECOCHEQUES = ELEC_ECOCHEQUES;
-    this.ELEC_CADEAU = ELEC_CADEAU;
-    this.AFRONDING = AFRONDING;
-    this.Totaal_lade = Totaal_lade;
-    this.TEGOEDBON_CREA = TEGOEDBON_CREA;
-    this.Totaal = Totaal;
+    this.cash = cash;
+    this.cheq_spec = cheq_spec;
+    this.maaltijdcheque = maaltijdcheque;
+    this.cheque_delhaize = cheque_delhaize;
+    this.tegoedbon = tegoedbon;
+    this.bon_pub_dll = bon_pub_dll;
+    this.bon_pub_lev = bon_pub_lev;
+    this.publiciteitsbon = publiciteitsbon;
+    this.leeggoedbon = leeggoedbon;
+    this.ecocheques = ecocheques;
+    this.mobile = mobile;
+    this.online_betaling = online_betaling;
+    this.bancontact = bancontact;
+    this.elec_maaltcheq = elec_maaltcheq;
+    this.terugbet_lotto = terugbet_lotto;
+    this.kredietkaart = kredietkaart;
+    this.op_krediet = op_krediet;
+    this.andere_totaal = andere_totaal;
+    this.andere = andere;
+    this.promo = promo;
+    this.kadobon = kadobon;
+    this.elec_ecocheques = elec_ecocheques;
+    this.elec_cadeau = elec_cadeau;
+    this.afronding = afronding;
+    this.totaal_lade = totaal_lade;
+    this.tegoedbon_crea = tegoedbon_crea;
+    this.totaal = totaal;
     this.amex = amex;
     this.visa = visa;
     this.mastercard = mastercard;
@@ -71,5 +74,6 @@ export const KasBoekRow = class {
     this.sodexo = sodexo;
     this.payfair = payfair;
     this.accordenred = accordenred;
+    this.publiciteitsbon_totaal = publiciteitsbon_totaal;
   }
 };

@@ -17,7 +17,27 @@ const useStyles = makeStyles({
   }
 });
 
-export default function KasTable({ rows }) {
+function calcTotal(row) {
+  return (
+    row.CHEQUE_DELHAIZE +
+    row.TEGOEDBON +
+    row.publiciteitsbon +
+    row.LEEGGOEDBON +
+    row.BANCONTACT +
+    row.OP_KREDIET +
+    row.andere +
+    row.amex +
+    row.visa +
+    row.mastercard +
+    row.maestro +
+    row.visa_electron +
+    row.sodexo +
+    row.payfair +
+    row.accordenred
+  );
+}
+
+export default function KasTable({ rows, totaal }) {
   const classes = useStyles();
 
   return (
@@ -26,7 +46,7 @@ export default function KasTable({ rows }) {
         <caption>tabel met kas</caption>
         <TableHead>
           <TableRow>
-            <TableCell>Datum</TableCell>
+            <TableCell align="right">Datum</TableCell>
             <TableCell align="right">omzet</TableCell>
             <TableCell align="right">cheque delhaize</TableCell>
             <TableCell align="right">tegoedbon</TableCell>
@@ -43,22 +63,32 @@ export default function KasTable({ rows }) {
             <TableCell align="right">payfair</TableCell>
             <TableCell align="right">sodexo</TableCell>
             <TableCell align="right">accordenred</TableCell>
-            <TableCell align="right">totaal</TableCell>
+            <TableCell align="right">TOTAAL</TableCell>
+            <TableCell align="right">VERSCHIL</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
+            <TableRow key={row.datum}>
               <TableCell align="right">{row.datum}</TableCell>
-              <TableCell align="right">{row.totaal}</TableCell>
+              <TableCell align="right">{row.Totaal}</TableCell>
               <TableCell align="right">{row.CHEQUE_DELHAIZE}</TableCell>
               <TableCell align="right">{row.TEGOEDBON}</TableCell>
               <TableCell align="right">{row.publiciteitsbon}</TableCell>
               <TableCell align="right">{row.LEEGGOEDBON}</TableCell>
               <TableCell align="right">{row.BANCONTACT}</TableCell>
+              <TableCell align="right">{row.OP_KREDIET}</TableCell>
+              <TableCell align="right">{row.andere}</TableCell>
+              <TableCell align="right">{row.amex}</TableCell>
+              <TableCell align="right">{row.visa}</TableCell>
+              <TableCell align="right">{row.mastercard}</TableCell>
+              <TableCell align="right">{row.maestro}</TableCell>
+              <TableCell align="right">{row.visa_electron}</TableCell>
+              <TableCell align="right">{row.sodexo}</TableCell>
+              <TableCell align="right">{row.payfair}</TableCell>
+              <TableCell align="right">{row.accordenred}</TableCell>
+              <TableCell align="right">{calcTotal(row)}</TableCell>
+              <TableCell align="right">{totaal - +row.Totaal}</TableCell>
             </TableRow>
           ))}
         </TableBody>
