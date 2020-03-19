@@ -43,8 +43,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
 export {
+  ListItemSecondaryAction,
   Dialog,
   DialogActions,
   DialogContent,

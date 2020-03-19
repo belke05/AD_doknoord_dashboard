@@ -1,9 +1,11 @@
 {
   "bestellingen broodjes": "overview/orders/sandwiches",
   "bestellingen schotels": "overview/orders/dishes",
+  "kasboek": "overview/kasboek",
   "aanpassen broodjes": "edit/orders/sandwiches",
   "aanpassen schotels": "edit/orders/dishes",
   "aanpassen afbeeldingen": "edit/pictures",
   "aanpassen teksten": "edit/texts",
+  "uploaden kasboek": "upload/kasboek",
   "testing": "testing"
 }

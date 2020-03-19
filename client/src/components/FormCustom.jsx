@@ -20,6 +20,15 @@ export default function FormCustom() {
     });
     set_sandwich_ingredient(null);
   };
+  const handleIngredientDelete = delete_ingredient => {
+    set_new_sandwich({
+      ...new_sandwich,
+      sandwich_ingredient: new_sandwich["sandwich-ingredient"].filter(
+        ingredient => ingredient !== delete_ingredient
+      )
+    });
+  };
+
   const handleChange = e => {
     const name = e.target.id;
     const value = e.target.value;
@@ -29,17 +38,16 @@ export default function FormCustom() {
       <TextField id="sandwich-name" label="naam" onChange={handleChange} />
       <TextField id="sandwich-price" label="prijs" onChange={handleChange} />
       <TextField
-        value={handleIngredientChange}
+        value={sandwich_ingredient}
         id="sandwich-ingredient"
         label="ingredient"
-        onChange={handleChange}
+        onChange={handleIngredientChange}
       />
-      <Button>voeg ingredient toe</Button>
+      <Button onClick={handleIngredientSubmit}>voeg ingredient toe</Button>
       {new_sandwich["sandwich-ingredient"].length > 0 && (
         <IngredientDisplay
+          handleIngredientDelete={handleIngredientDelete}
           ingredients={new_sandwich["sandwich-ingredient"]}
-          new_sandwich={new_sandwich}
-          set_new_sandwich={set_new_sandwich}
         ></IngredientDisplay>
       )}
       <CheckBoxCustom checkbox-id="sandwich-month"></CheckBoxCustom>

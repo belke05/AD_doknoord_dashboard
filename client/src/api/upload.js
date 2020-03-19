@@ -47,5 +47,15 @@ export default {
         return res.data;
       })
       .catch(errHandler);
+  },
+
+  postCSV(json_info) {
+    return service
+      .post(`/kasboek`, { newKasboekRow: json_info })
+      .then(res => {
+        console.log("a reponse in api frontend", res);
+        return res.data;
+      })
+      .catch(errHandler);
   }
 };
