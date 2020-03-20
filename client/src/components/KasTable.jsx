@@ -19,12 +19,12 @@ const useStyles = makeStyles({
 
 function calcTotal(row) {
   return (
-    row.CHEQUE_DELHAIZE +
-    row.TEGOEDBON +
+    row.cheque_delhaize +
+    row.tegoedbon +
     row.publiciteitsbon +
-    row.LEEGGOEDBON +
-    row.BANCONTACT +
-    row.OP_KREDIET +
+    row.leeggoedbon +
+    row.bancontact +
+    row.op_krediet +
     row.andere +
     row.amex +
     row.visa +
@@ -71,13 +71,13 @@ export default function KasTable({ rows, totaal }) {
           {rows.map(row => (
             <TableRow key={row.datum}>
               <TableCell align="right">{row.datum}</TableCell>
-              <TableCell align="right">{row.Totaal}</TableCell>
-              <TableCell align="right">{row.CHEQUE_DELHAIZE}</TableCell>
-              <TableCell align="right">{row.TEGOEDBON}</TableCell>
+              <TableCell align="right">{row.totaal}</TableCell>
+              <TableCell align="right">{row.cheque_delhaize}</TableCell>
+              <TableCell align="right">{row.tegoedbon}</TableCell>
               <TableCell align="right">{row.publiciteitsbon}</TableCell>
-              <TableCell align="right">{row.LEEGGOEDBON}</TableCell>
-              <TableCell align="right">{row.BANCONTACT}</TableCell>
-              <TableCell align="right">{row.OP_KREDIET}</TableCell>
+              <TableCell align="right">{row.leeggoedbon}</TableCell>
+              <TableCell align="right">{row.bancontact}</TableCell>
+              <TableCell align="right">{row.opkrediet}</TableCell>
               <TableCell align="right">{row.andere}</TableCell>
               <TableCell align="right">{row.amex}</TableCell>
               <TableCell align="right">{row.visa}</TableCell>
@@ -88,7 +88,7 @@ export default function KasTable({ rows, totaal }) {
               <TableCell align="right">{row.payfair}</TableCell>
               <TableCell align="right">{row.accordenred}</TableCell>
               <TableCell align="right">{calcTotal(row)}</TableCell>
-              <TableCell align="right">{totaal - +row.Totaal}</TableCell>
+              <TableCell align="right">{totaal - +row.totaal}</TableCell>
             </TableRow>
           ))}
         </TableBody>

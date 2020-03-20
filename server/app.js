@@ -40,6 +40,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 app.use("/api/orders", require("./routes/orders.js"));
 app.use("/api/sandwiches", require("./routes/sandwiches.js"));
 app.use("/api/uploads", require("./routes/upload.js"));
+app.use("/api/kasboek", require("./routes/kasboek.js"));
 
 // create an error if we have an api route that does not
 // seem to find an route

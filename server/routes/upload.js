@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const uploader = require("../config/cloudinary");
-const { uploadPhoto, uploadText } = require("../database/uploads");
+const {
+  uploadPhoto,
+  uploadText,
+  uploadKasboekRow
+} = require("../database/uploads");
 
 // GET ALL ORDERS
 
@@ -33,6 +37,20 @@ router.post("/text/:text_optie", (req, res, next) => {
     .then(returnvalue => {
       console.log(returnvalue);
       res.send("succesfull upload text");
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  console.log(new_text);
+});
+
+router.post("/kasboek", (req, res, next) => {
+  console.log("req body", req.body);
+  const newRow = req.body.newKasboekRow;
+  uploadKasboekRow(newRow)
+    .then(returnvalue => {
+      console.log(returnvalue);
+      res.send("succesfull upload row");
     })
     .catch(err => {
       console.error(err);

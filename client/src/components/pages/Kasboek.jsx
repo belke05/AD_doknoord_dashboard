@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/kasboek";
 import KasTable from "../KasTable";
-import { KasBoekRow } from "../models/KasBoekRij";
+import { KasBoekRow } from "../../models/KasBoekRij";
 
 export default function Kasboek() {
   const [kasboek, setKasboek] = useState([]);
@@ -57,5 +57,5 @@ export default function Kasboek() {
       .catch(err => console.log(err));
     return () => {};
   }, []);
-  return <KasTable rows={kasboek} totaal={totaal}></KasTable>;
+  return <KasTable rows={kasboek}></KasTable>;
 }

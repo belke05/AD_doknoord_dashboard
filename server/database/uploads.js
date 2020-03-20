@@ -16,7 +16,17 @@ const uploadText = async (textOptie, newText) => {
   return res;
 };
 
+const uploadKasboekRow = async newRow => {
+  db.collection("kasboekRow")
+    .add(newRow)
+    .then(ref => {
+      console.log("Added document with ID: ", ref.id);
+      return "Added document with ID: " + ref.id;
+    });
+};
+
 module.exports = {
   uploadPhoto,
-  uploadText
+  uploadText,
+  uploadKasboekRow
 };
