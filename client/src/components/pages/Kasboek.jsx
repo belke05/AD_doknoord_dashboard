@@ -48,11 +48,12 @@ export default function Kasboek() {
             rij.sodexo,
             rij.payfair,
             rij.accordenred,
-            rij.publiciteitsbon_totaal
-          );
+            rij.publiciteitsbon_totaal,
+            rij.som_totaal,
+            rij.verschil
+          ).allInfo;
         });
-        console.log("rijen", rijen);
-        setKasboek(res);
+        setKasboek(rijen);
       })
       .catch(err => console.log(err));
     return () => {};

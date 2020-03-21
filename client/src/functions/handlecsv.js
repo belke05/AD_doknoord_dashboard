@@ -1,17 +1,53 @@
-import readXlsxFile from "read-excel-file";
 import { KasBoekRow } from "../models/KasBoekRij";
 
 export default async function(file) {
-  const rows = await readXlsxFile(file);
-  const middelen = rows.slice(2, 28);
-  const andere = rows[28];
-  let info = {
-    datum: rows[0][0].replace("Selectie: ", ""),
-    ...betaalmiddelen(middelen),
-    ...kaarten(andere),
-    ...maaltijdcheques(andere)
+  console.log(file, "original sheet");
+  const datum = file[0][0];
+  const rijenVerkoop = file.slice(2, 28);
+  const rij = file[28];
+  const JSON_verkoop = verkoopToJson(rijenVerkoop);
+  let JSON_kaarten = {
+    amex: rij[7],
+    visa: rij[15],
+    mastercard: rij[23],
+    maestro: rij[32],
+    visa_electron: rij[40]
   };
-  const rij = new KasBoekRow(
+  let JSON_maaltijd = {
+    sodexo: rij[105],
+    payfair: rij[79],
+    accordenred: rij[130]
+  };
+  const publiciteitsbon_totaal =
+    JSON_verkoop.bon_pub_dll +
+    JSON_verkoop.bon_pub_lev +
+    JSON_verkoop.publiciteitsbon;
+  const andere_totaal =
+    JSON_verkoop.cheq_spec +
+    JSON_verkoop.tegoedbon +
+    JSON_verkoop.ecocheques +
+    JSON_verkoop.terugbet_lotto +
+    JSON_verkoop.maaltijdcheque;
+  const som_totaal = totaalSom(
+    JSON_verkoop,
+    JSON_kaarten,
+    JSON_maaltijd,
+    publiciteitsbon_totaal,
+    andere_totaal
+  );
+  const verschil = JSON_verkoop.totaal - (JSON_verkoop.cash + som_totaal);
+  let info = {
+    datum,
+    ...JSON_verkoop,
+    ...JSON_kaarten,
+    ...JSON_maaltijd,
+    andere_totaal,
+    publiciteitsbon_totaal,
+    som_totaal,
+    verschil
+  };
+  console.log("info", info);
+  const kasboekrij = new KasBoekRow(
     info.datum,
     info.cash,
     info.cheq_spec,
@@ -48,43 +84,49 @@ export default async function(file) {
     info.sodexo,
     info.payfair,
     info.accordenred,
-    info.publiciteitsbon_totaal
+    info.publiciteitsbon_totaal,
+    info.som_totaal,
+    info.verschil
   );
-  return rij;
+  console.log("rij", kasboekrij.allInfo);
+  return kasboekrij.allInfo;
 }
 
-function betaalmiddelen(betaalmiddel_arr) {
-  let middelen = {};
-  betaalmiddel_arr.forEach(element => {
-    const naam = element[0]
-      .replace(/\ /g, "_")
-      .replace(/\./g, "")
-      .toLowerCase();
-    const waarde = element[2];
-    middelen[naam] = waarde;
+function verkoopToJson(rijen) {
+  let verkoopJson = {};
+  rijen.forEach(rij => {
+    const waarde = rij[2];
+    const naam = rij[0]
+      .toLowerCase()
+      .replace(/ /g, "_")
+      .replace(/\./g, "");
+    verkoopJson[naam] = waarde;
   });
-
-  middelen.andere_totaal =
-    middelen.cheq_spec +
-    middelen.tegoedbon +
-    middelen.ecocheques +
-    middelen.terugbet_lotto;
-  middelen.publiciteitsbon_totaal =
-    middelen.bon_pub_dll + middelen.bon_pub_lev + middelen.publiciteitsbon;
-  console.log("middelen", middelen);
-  return middelen;
+  return verkoopJson;
 }
 
-const kaarten = kaarten_arr => ({
-  amex: kaarten_arr[7],
-  visa: kaarten_arr[14],
-  mastercard: kaarten_arr[23],
-  maestro: kaarten_arr[32],
-  visa_electron: kaarten_arr[40]
-});
-
-const maaltijdcheques = maaltijd_arr => ({
-  sodexo: maaltijd_arr[105],
-  payfair: maaltijd_arr[79],
-  accordenred: maaltijd_arr[130]
-});
+function totaalSom(
+  JSON_verkoop,
+  JSON_kaarten,
+  JSON_maaltijd,
+  publiciteitsbon_totaal,
+  andere_totaal
+) {
+  return (
+    JSON_verkoop.cheque_delhaize +
+    JSON_verkoop.tegoedbon +
+    publiciteitsbon_totaal +
+    JSON_verkoop.leeggoedbon +
+    JSON_verkoop.bancontact +
+    JSON_verkoop.op_krediet +
+    andere_totaal +
+    JSON_kaarten.amex +
+    JSON_kaarten.visa +
+    JSON_kaarten.mastercard +
+    JSON_kaarten.maestro +
+    JSON_kaarten.visa_electron +
+    JSON_maaltijd.payfair +
+    JSON_maaltijd.sodexo +
+    JSON_maaltijd.accordenred
+  );
+}

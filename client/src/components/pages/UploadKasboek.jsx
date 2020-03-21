@@ -2,23 +2,29 @@ import React, { useRef } from "react";
 import handleCSV from "../../functions/handlecsv";
 import api from "../../api/upload";
 import { Button } from "../../modules/bootstrap";
+import * as XLSX from "xlsx";
 
 export default function UploadKasboek(props) {
   const fileinput = useRef(null);
-  //   function handleUpload(e) {
-  //     console.log(e.target.files[0], "here");
+  const reader = new FileReader();
 
-  //   }
   function handleClick() {
-    // fileinput.current.files[0];
-    handleCSV(fileinput.current.files[0]).then(json => {
-      api
-        .postCSV(json)
-        .then(res => {
-          console.log(res);
-        })
-        .catch(err => console.log(err));
-    });
+    reader.onload = evt => {
+      const bstr = evt.target.result; // parse data
+      const wb = XLSX.read(bstr, { type: "binary" }); // read it
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+      const data = XLSX.utils.sheet_to_json(ws, { header: 1 }); // convert
+      handleCSV(data).then(json => {
+        api
+          .postCSV(json)
+          .then(res => {
+            console.log(res);
+          })
+          .catch(err => console.log(err));
+      });
+    };
+    reader.readAsBinaryString(fileinput.current.files[0]);
   }
 
   return (

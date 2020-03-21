@@ -26,7 +26,6 @@ export default {
       .get("")
       .then(res => {
         const kasboek = res.data.kasboek;
-        console.log(kasboek);
         return kasboek;
       })
       .catch(err => errHandler(err));
