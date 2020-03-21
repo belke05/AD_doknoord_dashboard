@@ -12,6 +12,7 @@ export const KasBoekRow = class {
         .replace(/\./g, "");
       this.verkoopJSON[naam] = waarde;
     });
+    console.log(this.verkoopJSON, "verkoop");
   }
 
   get andere_totaal() {
@@ -44,9 +45,9 @@ export const KasBoekRow = class {
       this.kaarten.mastercard +
       this.kaarten.maestro +
       this.kaarten.visa_electron +
-      this.maaltijd.payfair +
-      this.maaltijd.sodexo +
-      this.maaltijd.accordenred +
+      this.maaltijdcheque.payfair +
+      this.maaltijdcheque.sodexo +
+      this.maaltijdcheque.accordenred +
       this.andere_totaal +
       this.publiciteitsbon_totaal
     );
@@ -64,9 +65,9 @@ export const KasBoekRow = class {
 
   get maaltijdcheque() {
     return {
-      sodexo: rij[105],
-      payfair: rij[79],
-      accordenred: rij[130]
+      sodexo: this.file[28][105],
+      payfair: this.file[28][79],
+      accordenred: this.file[28][130]
     };
   }
 
@@ -74,48 +75,48 @@ export const KasBoekRow = class {
     return (
       this.verkoopJSON.totaal -
       this.verkoopJSON.afronding -
-      (this.verkoopJSON + this.som_totaal)
+      (this.verkoopJSON.cash + this.som_totaal)
     );
   }
 
   get allInfo() {
     return {
       datum: this.datum,
-      cash: this.cash,
-      cheq_spec: this.cheq_spec,
-      maaltijdcheque: this.maaltijdcheque,
-      cheque_delhaize: this.cheque_delhaize,
+      cash: this.verkoopJSON.cash,
+      cheq_spec: this.verkoopJSON.cheq_spec,
+      maaltijdcheque: this.verkoopJSON.maaltijdcheque,
+      cheque_delhaize: this.verkoopJSON.cheque_delhaize,
       tegoebon: this.verkoopJSON.tegoedbon,
-      bon_pub_dll: this.bon_pub_dll,
-      bon_pub_lev: this.bon_pub_lev,
-      publiciteitsbon: this.publiciteitsbon,
-      leeggoedbon: this.leeggoedbon,
-      ecocheques: this.ecocheques,
-      mobile: this.mobile,
-      online_betaling: this.online_betaling,
-      bancontact: this.bancontact,
-      elec_maaltcheq: this.elec_maaltcheq,
-      terugbet_lotto: this.terugbet_lotto,
-      kredietkaart: this.kredietkaart,
-      op_krediet: this.op_krediet,
+      bon_pub_dll: this.verkoopJSON.bon_pub_dll,
+      bon_pub_lev: this.verkoopJSON.bon_pub_lev,
+      publiciteitsbon: this.verkoopJSON.publiciteitsbon,
+      leeggoedbon: this.verkoopJSON.leeggoedbon,
+      ecocheques: this.verkoopJSON.ecocheques,
+      mobile: this.verkoopJSON.mobile,
+      online_betaling: this.verkoopJSON.online_betaling,
+      bancontact: this.verkoopJSON.bancontact,
+      elec_maaltcheq: this.verkoopJSON.elec_maaltcheq,
+      terugbet_lotto: this.verkoopJSON.terugbet_lotto,
+      kredietkaart: this.verkoopJSON.kredietkaart,
+      op_krediet: this.verkoopJSON.op_krediet,
+      andere: this.verkoopJSON.andere,
+      promo: this.verkoopJSON.promo,
+      kadobon: this.verkoopJSON.kadobon,
+      elec_ecocheques: this.verkoopJSON.elec_ecocheques,
+      elec_cadeau: this.verkoopJSON.elec_cadeau,
+      afronding: this.verkoopJSON.afronding,
+      totaal_lade: this.verkoopJSON.totaal_lade,
+      tegoedbon_crea: this.verkoopJSON.tegoedbon_crea,
+      totaal: this.verkoopJSON.totaal,
+      amex: this.kaarten.amex,
+      visa: this.kaarten.visa,
+      mastercard: this.kaarten.mastercard,
+      maestro: this.kaarten.maestro,
+      visa_electron: this.kaarten.visa_electron,
+      payfair: this.maaltijdcheque.payfair,
+      sodexo: this.maaltijdcheque.sodexo,
+      accordenred: this.maaltijdcheque.accordenred,
       andere_totaal: this.andere_totaal,
-      andere: this.andere,
-      promo: this.promo,
-      kadobon: this.kadobon,
-      elec_ecocheques: this.elec_ecocheques,
-      elec_cadeau: this.elec_cadeau,
-      afronding: this.afronding,
-      totaal_lade: this.totaal_lade,
-      tegoedbon_crea: this.tegoedbon_crea,
-      totaal: this.totaal,
-      amex: this.amex,
-      visa: this.visa,
-      mastercard: this.mastercard,
-      maestro: this.maestro,
-      visa_electron: this.visa_electron,
-      payfair: this.payfair,
-      sodexo: this.sodexo,
-      accordenred: this.accordenred,
       som_totaal: this.som_totaal,
       verschil: this.verschil
     };
@@ -123,24 +124,24 @@ export const KasBoekRow = class {
 
   get tableInfo() {
     return {
-      cheque_delhaize: this.cheque_delhaize,
-      tegoedbon: this.tegoedbon,
+      cheque_delhaize: this.verkoopJSON.cheque_delhaize,
+      tegoedbon: this.verkoopJSON.tegoedbon,
       publiciteitsbon_totaal: this.publiciteitsbon_totaal,
-      leeggoedbon: this.leeggoedbon,
-      bancontact: this.bancontact,
-      op_krediet: this.op_krediet,
+      leeggoedbon: this.verkoopJSON.leeggoedbon,
+      bancontact: this.verkoopJSON.bancontact,
+      op_krediet: this.verkoopJSON.op_krediet,
       andere_totaal: this.andere_totaal,
-      amex: this.amex,
-      visa: this.visa,
-      mastercard: this.mastercard,
-      maestro: this.maestro,
-      visa_electron: this.visa_electron,
-      payfair: this.payfair,
-      sodexo: this.sodexo,
-      accordenred: this.accordenred,
+      amex: this.kaarten.amex,
+      visa: this.kaarten.visa,
+      mastercard: this.kaarten.mastercard,
+      maestro: this.kaarten.maestro,
+      visa_electron: this.kaarten.visa_electron,
+      payfair: this.maaltijdcheque.payfair,
+      sodexo: this.maaltijdcheque.sodexo,
+      accordenred: this.maaltijdcheque.accordenred,
       som_totaal: this.som_totaal,
       verschil: this.verschil,
-      cash: this.cash
+      cash: this.verkoopJSON.cash
     };
   }
 };
