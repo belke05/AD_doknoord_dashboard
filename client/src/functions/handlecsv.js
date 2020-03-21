@@ -35,7 +35,10 @@ export default async function(file) {
     publiciteitsbon_totaal,
     andere_totaal
   );
-  const verschil = JSON_verkoop.totaal - (JSON_verkoop.cash + som_totaal);
+  const verschil =
+    JSON_verkoop.totaal -
+    JSON_verkoop.afronding -
+    (JSON_verkoop.cash + som_totaal);
   let info = {
     datum,
     ...JSON_verkoop,
