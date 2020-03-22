@@ -6,9 +6,21 @@ import * as XLSX from "xlsx";
 
 export default function UploadKasboek(props) {
   const fileinput = useRef(null);
-  const reader = new FileReader();
 
   function handleClick() {
+    console.log(fileinput.current.files);
+    if (fileinput.current.files.length > 1) {
+      for (let i = 0; i < fileinput.current.files.length; i++) {
+        const file = fileinput.current.files[i];
+        handleFile(file);
+      }
+    } else {
+      handleFile(fileinput.current.files[0]);
+    }
+  }
+
+  function handleFile(file) {
+    const reader = new FileReader();
     reader.onload = evt => {
       const bstr = evt.target.result; // parse data
       const wb = XLSX.read(bstr, { type: "binary" }); // read it
@@ -24,7 +36,7 @@ export default function UploadKasboek(props) {
           .catch(err => console.log(err));
       });
     };
-    reader.readAsBinaryString(fileinput.current.files[0]);
+    reader.readAsBinaryString(file);
   }
 
   return (
@@ -34,6 +46,7 @@ export default function UploadKasboek(props) {
         // onChange={e => handleUpload(e)}
         type="file"
         id="input"
+        multiple
       />
       <Button onClick={handleClick}>upload kasboekrij</Button>
     </div>
