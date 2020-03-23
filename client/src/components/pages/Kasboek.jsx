@@ -3,27 +3,111 @@ import api from "../../api/kasboek";
 import TableTemplate from "../table/TableTemplate";
 
 const headCells = [
-  { id: "lastName", numeric: false, disablePadding: true, label: "naam" },
-  { id: "price", numeric: true, disablePadding: false, label: "te betalen" },
+  { id: "datum", numeric: false, disablePadding: true, label: "datum" },
+  { id: "omzet", numeric: true, disablePadding: false, label: "omzet" },
   {
-    id: "pickupDate",
+    id: "cheque_delhaize",
     numeric: true,
     disablePadding: false,
-    label: "datum afhalen"
+    label: "cheque delhaize"
   },
   {
-    id: "pickupTime",
+    id: "tegoedbon",
     numeric: true,
     disablePadding: false,
-    label: "tijdstip afhalen"
+    label: "tegoedbon"
   },
   {
-    id: "timeOrder",
+    id: "publiciteitsbon",
     numeric: true,
     disablePadding: false,
-    label: "tijdstip bestelling"
+    label: "publiciteitsbon"
   },
-  { id: "details", numeric: true, disablePadding: false, label: "details" }
+  {
+    id: "leeggoedbon",
+    numeric: true,
+    disablePadding: false,
+    label: "leeggoedbon"
+  },
+  {
+    id: "banccontact",
+    numeric: true,
+    disablePadding: false,
+    label: "bancontact"
+  },
+  {
+    id: "op_krediet",
+    numeric: true,
+    disablePadding: false,
+    label: "op krediet"
+  },
+  {
+    id: "andere",
+    numeric: true,
+    disablePadding: false,
+    label: "andere"
+  },
+  {
+    id: "amex",
+    numeric: true,
+    disablePadding: false,
+    label: "amex"
+  },
+
+  {
+    id: "visa",
+    numeric: true,
+    disablePadding: false,
+    label: "visa"
+  },
+  {
+    id: "mastercard",
+    numeric: true,
+    disablePadding: false,
+    label: "mastercard"
+  },
+  {
+    id: "maestro",
+    numeric: true,
+    disablePadding: false,
+    label: "maestro"
+  },
+  {
+    id: "visa_electron",
+    numeric: true,
+    disablePadding: false,
+    label: "visa electron"
+  },
+  {
+    id: "payfair",
+    numeric: true,
+    disablePadding: false,
+    label: "payfair"
+  },
+  {
+    id: "sodexo",
+    numeric: true,
+    disablePadding: false,
+    label: "sodexo"
+  },
+  {
+    id: "accordenred",
+    numeric: true,
+    disablePadding: false,
+    label: "accordenred"
+  },
+  {
+    id: "totaal",
+    numeric: true,
+    disablePadding: false,
+    label: "totaal"
+  },
+  {
+    id: "verschil",
+    numeric: true,
+    disablePadding: false,
+    label: "verschil"
+  }
 ];
 
 export default function Kasboek() {
