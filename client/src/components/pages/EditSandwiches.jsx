@@ -4,9 +4,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import api from "../../api/sandwich";
-import EnhancedTable from "../pages/EnhancedTable";
+import TableTemplate from "../table/TableTemplate";
 
-export default function OrderHandler(props) {
+export default function EditSandwiches(props) {
   const [sandwiches, setSandwiches] = useState([]);
   useEffect(() => {
     api.getSandwiches().then(_sandwiches => {
@@ -16,10 +16,10 @@ export default function OrderHandler(props) {
 
   return (
     <div>
-      <EnhancedTable
+      <TableTemplate
         orders={sandwiches}
         setOrders={setSandwiches}
-      ></EnhancedTable>
+      ></TableTemplate>
     </div>
   );
 }

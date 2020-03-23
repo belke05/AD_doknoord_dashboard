@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import OrderHandler from "./components/hoc/OrderHandler";
+import Orders from "./components/pages/Orders";
 import EditPictures from "./components/pages/EditPictures";
 import EditTexts from "./components/pages/EditTexts";
-import SandwichHandler from "./components/hoc/SandwichHandler";
+import EditSandwiches from "./components/pages/EditSandwiches";
 import PersistentDrawerLeft from "./components/navigation";
 import FormCustom from "./components/FormCustom";
 import UploadKasboek from "./components/pages/UploadKasboek";
@@ -14,19 +14,11 @@ function App() {
     <div className="App">
       <PersistentDrawerLeft>
         <Switch>
-          <Route path="/" exact component={OrderHandler} />
-          <Route
-            path="/overview/orders/dishes"
-            exact
-            component={OrderHandler}
-          />
-          <Route
-            path="/overview/orders/sandwiches"
-            exact
-            component={OrderHandler}
-          />
+          <Route path="/" exact component={Orders} />
+          <Route path="/overview/orders/dishes" exact component={Orders} />
+          <Route path="/overview/orders/sandwiches" exact component={Orders} />
           <Route path="/overview/kasboek" exact component={KasBoek} />
-          <Route path="/edit/orders/dishes" exact component={OrderHandler} />
+          <Route path="/edit/orders/dishes" exact component={EditSandwiches} />
           <Route path="/edit/pictures" component={EditPictures} />
           <Route path="/edit/texts" component={EditTexts} />
           <Route path="/upload/kasboek" component={UploadKasboek} />

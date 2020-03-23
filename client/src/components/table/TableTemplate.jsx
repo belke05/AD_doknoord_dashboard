@@ -11,8 +11,8 @@ import {
   Switch,
   makeStyles
 } from "../../modules/material";
-import EnhancedTableToolbar from "./EnhancedTableToolbar";
-import EnhancedTableHead from "./EnhancedTableHead";
+import EnhancedTableToolbar from "./TableToolbarTemplate";
+import EnhancedTableHead from "./TableHeadTemplate";
 import KasRow from "../kasboek_screen/KasRow";
 import OrderRow from "../order_screen/OrderRow";
 
@@ -28,9 +28,9 @@ import api from "../../api/orders";
 import { enchancedTableStyle } from "../../styles/material/makeStyles";
 const useStyles = makeStyles(enchancedTableStyle);
 
-export default function Table(props) {
+export default function TableTemplate(props) {
   const classes = useStyles();
-  const { rows, orderbyName, tableName } = props;
+  const { rows, orderbyName, tableName, headCells } = props;
 
   /* states */
   const [order, setOrder] = React.useState("asc");
@@ -123,6 +123,7 @@ export default function Table(props) {
               aria-label="enhanced table"
             >
               <EnhancedTableHead
+                headCells={headCells}
                 classes={classes}
                 numSelected={selected.length}
                 order={order}
