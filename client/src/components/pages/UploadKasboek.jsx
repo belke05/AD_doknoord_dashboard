@@ -14,8 +14,6 @@ export default function UploadKasboek(props) {
         const file = fileinput.current.files[i];
         handleFile(file);
       }
-    } else {
-      handleFile(fileinput.current.files[0]);
     }
   }
 

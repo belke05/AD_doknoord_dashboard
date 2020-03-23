@@ -1,5 +1,5 @@
 import React from "react";
-import { createIngredientsString } from "../utils/functions";
+import { createIngredientsString } from "../../functions/functions";
 
 import {
   List,

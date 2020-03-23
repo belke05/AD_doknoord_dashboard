@@ -1,4 +1,5 @@
 import { lighten } from "../../modules/material";
+import { Hidden } from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -41,6 +42,7 @@ const navigationTheme = theme => ({
     justifyContent: "flex-end"
   },
   content: {
+    overflow: "hidden",
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
@@ -60,7 +62,8 @@ const navigationTheme = theme => ({
 
 const enchancedTableStyle = theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    overflow: "hidden"
   },
   paper: {
     width: "100%",

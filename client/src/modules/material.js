@@ -44,9 +44,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 export {
   ListItemSecondaryAction,
+  CloudUploadIcon,
   Dialog,
   DialogActions,
   DialogContent,

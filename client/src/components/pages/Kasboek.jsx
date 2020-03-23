@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/kasboek";
-import KasTable from "../KasTable";
+import TableTemplate from "../table/TableTemplate";
 
 export default function Kasboek() {
   const [kasboek, setKasboek] = useState([]);
@@ -17,5 +17,11 @@ export default function Kasboek() {
       .catch(err => console.log(err));
     return () => {};
   }, []);
-  return <KasTable rows={kasboek}></KasTable>;
+  return (
+    <TableTemplate
+      rows={kasboek}
+      orderbyName="datum"
+      tableName="kas"
+    ></TableTemplate>
+  );
 }

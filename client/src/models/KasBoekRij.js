@@ -2,6 +2,7 @@ export const KasBoekRow = class {
   constructor(file) {
     this.file = file;
     this.datum = file[0][0];
+    this.datum_dateformat = new Date(file[0][0].split(" ")[1]);
     this.verkoopJSON = {};
     const rijen = file.slice(2, 28);
     rijen.forEach(rij => {
@@ -82,6 +83,7 @@ export const KasBoekRow = class {
   get allInfo() {
     return {
       datum: this.datum,
+      datum_dateformat: this.datum_dateformat,
       cash: this.verkoopJSON.cash,
       cheq_spec: this.verkoopJSON.cheq_spec,
       maaltijdcheque: this.verkoopJSON.maaltijdcheque,

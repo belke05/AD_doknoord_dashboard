@@ -20,6 +20,7 @@ import {
   ListItemText,
   ViewListIcon,
   EditIcon,
+  CloudUploadIcon,
   makeStyles,
   useTheme
 } from "../modules/material";
@@ -133,7 +134,9 @@ function PersistentDrawerLeft(props) {
         <List>
           {["uploaden kasboek"].map((text, index) => (
             <ListItem button key={text} onClick={handleRoute.bind(this, text)}>
-              <ListItemIcon>{index === 0 ? <EditIcon /> : null}</ListItemIcon>
+              <ListItemIcon>
+                {index === 0 ? <CloudUploadIcon /> : null}
+              </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
