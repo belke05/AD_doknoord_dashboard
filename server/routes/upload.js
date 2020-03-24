@@ -7,8 +7,6 @@ const {
   uploadKasboekRow
 } = require("../database/uploads");
 
-// GET ALL ORDERS
-
 router.post(
   "/photo/:photo_optie",
   uploader.single("photo"),
@@ -47,6 +45,7 @@ router.post("/text/:text_optie", (req, res, next) => {
 router.post("/kasboek", (req, res, next) => {
   console.log("req body", req.body);
   const newRow = req.body.newKasboekRow;
+  console.log(newRow);
   uploadKasboekRow(newRow)
     .then(returnvalue => {
       console.log(returnvalue);
@@ -55,7 +54,6 @@ router.post("/kasboek", (req, res, next) => {
     .catch(err => {
       console.error(err);
     });
-  console.log(new_text);
 });
 
 module.exports = router;

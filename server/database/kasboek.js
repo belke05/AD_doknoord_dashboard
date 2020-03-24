@@ -2,7 +2,7 @@ const { db } = require("../config/index");
 
 const get_kasboek = async () => {
   console.log("here in db");
-  const snapshot = await db.collection("kasboekRow").get();
+  const snapshot = await db.collection("kasboek").get();
   let kasboek = snapshot.docs.map(doc => {
     return { ...doc.data(), id: doc.id };
   });

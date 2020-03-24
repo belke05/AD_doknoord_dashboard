@@ -114,7 +114,10 @@ export default function TableTemplate(props) {
     return (
       <div className={classes.root}>
         <Paper className={classes.paper}>
-          <EnhancedTableToolbar numSelected={selected.length} />
+          <EnhancedTableToolbar
+            numSelected={selected.length}
+            title={tableName}
+          />
           <TableContainer>
             <Table
               className={classes.table}

@@ -1,4 +1,5 @@
 const { db } = require("../config/index");
+console.log("logging");
 
 const uploadPhoto = async (photoOptie, photoUrl) => {
   const res = await db
@@ -17,7 +18,8 @@ const uploadText = async (textOptie, newText) => {
 };
 
 const uploadKasboekRow = async newRow => {
-  db.collection("kasboekRow")
+  console.log(newRow);
+  db.collection("kasboek")
     .add(newRow)
     .then(ref => {
       console.log("Added document with ID: ", ref.id);

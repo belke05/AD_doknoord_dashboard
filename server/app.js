@@ -17,6 +17,13 @@ const app = express();
 
 // app.use(nocache());
 
+console.log("logging 2");
+app.use((req, res, next) => {
+  console.log("here");
+  console.log(req.body);
+  next();
+});
+
 // CORS  headers
 app.use(
   cors({

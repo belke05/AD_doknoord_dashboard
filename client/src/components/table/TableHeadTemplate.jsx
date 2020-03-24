@@ -9,30 +9,6 @@ import {
   Checkbox
 } from "../../modules/material";
 
-const headCells = [
-  { id: "lastName", numeric: false, disablePadding: true, label: "naam" },
-  { id: "price", numeric: true, disablePadding: false, label: "te betalen" },
-  {
-    id: "pickupDate",
-    numeric: true,
-    disablePadding: false,
-    label: "datum afhalen"
-  },
-  {
-    id: "pickupTime",
-    numeric: true,
-    disablePadding: false,
-    label: "tijdstip afhalen"
-  },
-  {
-    id: "timeOrder",
-    numeric: true,
-    disablePadding: false,
-    label: "tijdstip bestelling"
-  },
-  { id: "details", numeric: true, disablePadding: false, label: "details" }
-];
-
 export default function EnhancedTableHead(props) {
   const {
     classes,
@@ -41,7 +17,8 @@ export default function EnhancedTableHead(props) {
     orderBy,
     numSelected,
     rowCount,
-    onRequestSort
+    onRequestSort,
+    headCells
   } = props;
 
   const createSortHandler = property => event => {

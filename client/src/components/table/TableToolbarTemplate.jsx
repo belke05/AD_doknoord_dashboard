@@ -19,7 +19,7 @@ const useToolbarStyles = makeStyles(enchancedTableToolbarStyle);
 
 export default function EnhancedTableToolbar(props) {
   const classes = useToolbarStyles();
-  const { numSelected } = props;
+  const { numSelected, title } = props;
 
   return (
     <Toolbar
@@ -33,11 +33,11 @@ export default function EnhancedTableToolbar(props) {
           color="inherit"
           variant="subtitle1"
         >
-          {numSelected} orders geselecteerd
+          {numSelected} geselecteerd
         </Typography>
       ) : (
         <Typography className={classes.title} variant="h6" id="tableTitle">
-          inkomende bestellingen
+          overzicht {title}
         </Typography>
       )}
 
