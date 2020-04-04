@@ -12,7 +12,10 @@ export default function ProgressSpinner(props) {
   return (
     <div className={classes.root}>
       <CircularProgress />
-      <div>{waittext}</div>
+      <hr />
+      <div>
+        <b>{waittext}</b>
+      </div>
     </div>
   );
 }

@@ -117,6 +117,10 @@ const enchancedTableToolbarStyle = theme => ({
 const spinnerStyle = theme => ({
   root: {
     display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    height: "100vh",
     "& > * + *": {
       marginLeft: theme.spacing(2)
     }

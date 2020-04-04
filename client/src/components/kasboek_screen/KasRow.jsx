@@ -3,7 +3,7 @@ import { Button, TableCell, TableRow, Checkbox } from "../../modules/material";
 
 export default function KasRow({
   row,
-  isItemSelected,
+  headCells,
   labelId,
   selectedItems,
   handleClick
@@ -15,33 +15,45 @@ export default function KasRow({
       <TableRow key={row.datum}>
         <TableCell padding="checkbox">
           <Checkbox
-            onClick={e => handleClick(e, row.datum)}
-            checked={isSelected(row.datum)}
+            onClick={e => handleClick(e, row.id)}
+            checked={isSelected(row.id)}
             inputProps={{ "aria-labelledby": labelId }}
           />
         </TableCell>
-        <TableCell align="right">{row.datum}</TableCell>
-        <TableCell align="right">{row.totaal}</TableCell>
-        <TableCell align="right">{row.cheque_delhaize}</TableCell>
-        <TableCell align="right">{row.tegoebon}</TableCell>
-        <TableCell align="right">{row.publiciteitsbon}</TableCell>
-        <TableCell align="right">{row.leeggoedbon}</TableCell>
-        <TableCell align="right">{row.bancontact}</TableCell>
-        <TableCell align="right">{row.op_krediet}</TableCell>
-        <TableCell align="right">{row.andere}</TableCell>
-        <TableCell align="right">{row.amex}</TableCell>
-        <TableCell align="right">{row.visa}</TableCell>
-        <TableCell align="right">{row.mastercard}</TableCell>
-        <TableCell align="right">{row.maestro}</TableCell>
-        <TableCell align="right">{row.visa_electron}</TableCell>
-        <TableCell align="right">{row.sodexo}</TableCell>
-        <TableCell align="right">{row.payfair}</TableCell>
-        <TableCell align="right">{row.accordenred}</TableCell>
-        <TableCell align="right">{row.som_totaal.toFixed(2)}</TableCell>
-        <TableCell align="right">
-          {row.verschil < 1 ? 0 : row.verschil.toFixed(2)}
-        </TableCell>
+        {headCells.map(({ id, numeric }) => {
+          const cellid = id;
+          if (cellid === "som_totaal") {
+            return (
+              <TableCell align="center">{row.som_totaal.toFixed(2)}</TableCell>
+            );
+          }
+          if (cellid === "verschil") {
+            return (
+              <TableCell align="center">{row.verschil.toFixed(2)}</TableCell>
+            );
+          }
+          return <TableCell align="center">{row[cellid]}</TableCell>;
+        })}
       </TableRow>
     </>
   );
+}
+
+{
+  /* <TableCell align="center">{row.totaal}</TableCell>
+<TableCell align="center">{row.cheque_delhaize}</TableCell>
+<TableCell align="center">{row.tegoebon}</TableCell>
+<TableCell align="center">{row.publiciteitsbon}</TableCell>
+<TableCell align="center">{row.leeggoedbon}</TableCell>
+<TableCell align="center">{row.bancontact}</TableCell>
+<TableCell align="center">{row.op_krediet}</TableCell>
+<TableCell align="center">{row.andere}</TableCell>
+<TableCell align="center">{row.amex}</TableCell>
+<TableCell align="center">{row.visa}</TableCell>
+<TableCell align="center">{row.mastercard}</TableCell>
+<TableCell align="center">{row.maestro}</TableCell>
+<TableCell align="center">{row.visa_electron}</TableCell>
+<TableCell align="center">{row.sodexo}</TableCell>
+<TableCell align="center">{row.payfair}</TableCell>
+<TableCell align="center">{row.accordenred}</TableCell> */
 }

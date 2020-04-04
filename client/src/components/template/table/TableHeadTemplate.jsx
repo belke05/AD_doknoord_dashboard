@@ -7,7 +7,7 @@ import {
   TableRow,
   TableSortLabel,
   Checkbox
-} from "../../modules/material";
+} from "../../../modules/material";
 
 export default function EnhancedTableHead(props) {
   const {
@@ -22,6 +22,7 @@ export default function EnhancedTableHead(props) {
   } = props;
 
   const createSortHandler = property => event => {
+    console.log("property", property);
     onRequestSort(event, property);
   };
 
@@ -39,7 +40,7 @@ export default function EnhancedTableHead(props) {
         {headCells.map(headCell => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
+            align={headCell.numeric ? "center" : "center"}
             padding={headCell.disablePadding ? "none" : "default"}
             sortDirection={orderBy === headCell.id ? order : false}
           >

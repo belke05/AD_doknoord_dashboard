@@ -2,23 +2,31 @@ const tableheadMap = {
   omzet: "totaal",
   "cheque delhaize": "cheque_delhaize",
   "op krediet": "op_krediet",
-  totaal: "som_totaal",
-  datum: "datum_dateformat"
+  totaal: "som_totaal"
 };
 
 function descendingComparator(a, b, orderBy) {
-  console.log("comparisson", orderBy, a[orderBy], b[orderBy], a);
-  orderBy = checkMapping(orderBy);
-  if (orderBy === "datum_dateformat") {
-    const { dateA, dateB } = convertDate(a[orderBy], b[orderBy]);
-    a[orderBy] = dateA;
-    b[orderBy] = dateB;
-    console.log(a[orderBy], b[orderBy]);
+  if (!orderBy) {
+    return;
   }
-  if (b[orderBy] < a[orderBy]) {
+  let compA = a[orderBy];
+  let compB = b[orderBy];
+  orderBy = checkMapping(orderBy);
+  if (
+    orderBy.toLowerCase().includes("date") ||
+    orderBy.toLowerCase().includes("time") ||
+    orderBy.toLowerCase().includes("datum")
+  ) {
+    console.log("a", a);
+    const { dateA, dateB } = convertDateTime(compA, compB, orderBy);
+    compA = dateA;
+    compB = dateB;
+    console.log("compA", compA);
+  }
+  if (compA < compB) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (compA > compB) {
     return 1;
   }
   return 0;
@@ -61,9 +69,32 @@ function filterOutIds(orders, orderids) {
   return new_orders;
 }
 
-function convertDate(dateA, dateB) {
-  console.log(dateA, dateB);
-  return { dateA: dateA._seconds, dateB: dateB._seconds };
+function convertDateTime(A, B, orderBy) {
+  if (orderBy === "pickupDate") {
+    A = new Date(
+      A.split("/")
+        .map(el => (el.length < 2 ? "0" + el : el))
+        .join("-")
+    );
+    B = new Date(
+      B.split("/")
+        .map(el => (el.length < 2 ? "0" + el : el))
+        .join("-")
+    );
+  }
+  if (orderBy === "datum") {
+    const datePartsA = A.split(" ")[1].split("/");
+    const datePartsB = B.split(" ")[1].split("/");
+    console.log("datePartsA", datePartsA);
+    // month is 0-based, that's why we need dataParts[1] - 1
+    A = new Date(+datePartsA[2], datePartsA[1] - 1, +datePartsA[0]);
+    B = new Date(+datePartsB[2], datePartsB[1] - 1, +datePartsB[0]);
+  }
+  if (orderBy === "pickupTime") {
+    A = A.replace(":", "");
+    B = B.replace(":", "");
+  }
+  return { dateA: Number(A), dateB: Number(B) };
 }
 
 function checkMapping(orderBy) {

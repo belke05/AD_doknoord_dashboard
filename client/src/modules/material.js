@@ -46,6 +46,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Fab from "@material-ui/core/Fab";
 
 export {
   CircularProgress,
@@ -97,5 +98,6 @@ export {
   MailIcon,
   useTheme,
   ViewListIcon,
-  EditIcon
+  EditIcon,
+  Fab
 };

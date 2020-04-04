@@ -10,52 +10,54 @@ import {
   FormControlLabel,
   Switch,
   makeStyles
-} from "../../modules/material";
+} from "../../../modules/material";
 import EnhancedTableToolbar from "./TableToolbarTemplate";
 import EnhancedTableHead from "./TableHeadTemplate";
-import KasRow from "../kasboek_screen/KasRow";
-import OrderRow from "../order_screen/OrderRow";
-import ProgressSpinner from "../template/ProgressSpinner";
+import KasRow from "../../kasboek_screen/KasRow";
+import OrderRow from "../../order_screen/OrderRow";
+import ProgressSpinner from "../ProgressSpinner";
 
 /* utils */
 import {
   getComparator,
   stableSort,
   filterOutIds
-} from "../../functions/functions";
-import api from "../../api/orders";
+} from "../../../functions/functions";
+import api from "../../../api/orders";
 
 /* styling */
-import { enchancedTableStyle } from "../../styles/material/makeStyles";
+import { enchancedTableStyle } from "../../../styles/material/makeStyles";
 const useStyles = makeStyles(enchancedTableStyle);
 
 export default function TableTemplate(props) {
   const classes = useStyles();
-  const { rows, orderbyName, tableName, headCells } = props;
+  const { rows, orderbyColumn, tableName, headCells } = props;
 
   /* states */
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState(orderbyName);
+  const [orderBy, setOrderBy] = React.useState(orderbyColumn);
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   /* handlers */
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
+  const handleRequestSort = (event, orderColumn) => {
+    const isAsc = orderBy === orderColumn && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
+    setOrderBy(orderColumn);
   };
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelected = rows.map(n => n.datum);
-      console.log(newSelected, "new selected");
+      const newSelected = rows.map(n => {
+        return n.id;
+      });
       setSelected(newSelected);
       return;
+    } else {
+      setSelected([]);
     }
-    setSelected([]);
   };
 
   const handleClick = (event, name) => {
@@ -113,6 +115,51 @@ export default function TableTemplate(props) {
   if (!rows || !rows.length) {
     return <ProgressSpinner waittext={`laden van ${tableName} tabel`} />;
   }
+
+  const renderTablecontent = () => {
+    return (
+      <TableBody>
+        {stableSort(rows, getComparator(order, orderBy))
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((row, index) => {
+            const isItemSelected = isSelected(row.datum);
+            const labelId = `enhanced-table-checkbox-${index}`;
+            if (tableName === "kas") {
+              return (
+                <KasRow
+                  row={row}
+                  headCells={headCells}
+                  classes={classes}
+                  handleClick={handleClick}
+                  key={row.datum}
+                  selectedItems={selected}
+                  selected={isItemSelected}
+                  labelId={labelId}
+                  emptyRows={emptyRows}
+                  dense={dense}
+                ></KasRow>
+              );
+            } else if (tableName === "orders") {
+              return (
+                <OrderRow
+                  row={row}
+                  headCells={headCells}
+                  classes={classes}
+                  handleClick={handleClick}
+                  key={row.id}
+                  selectedItems={selected}
+                  selected={isItemSelected}
+                  labelId={labelId}
+                  emptyRows={emptyRows}
+                  dense={dense}
+                ></OrderRow>
+              );
+            }
+          })}
+      </TableBody>
+    );
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -134,51 +181,7 @@ export default function TableTemplate(props) {
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
-            {tableName === "kas" ? (
-              <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.datum);
-                    const labelId = `enhanced-table-checkbox-${index}`;
-                    return (
-                      <KasRow
-                        row={row}
-                        classes={classes}
-                        handleClick={handleClick}
-                        key={row.datum}
-                        selectedItems={selected}
-                        selected={isItemSelected}
-                        labelId={labelId}
-                        emptyRows={emptyRows}
-                        dense={dense}
-                      ></KasRow>
-                    );
-                  })}
-              </TableBody>
-            ) : tableName === "orders" ? (
-              <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.id);
-                    const labelId = `enhanced-table-checkbox-${index}`;
-                    return (
-                      <OrderRow
-                        order={row}
-                        classes={classes}
-                        handleClick={handleClick}
-                        key={row.id}
-                        selectedItems={selected}
-                        selected={isItemSelected}
-                        labelId={labelId}
-                        emptyRows={emptyRows}
-                        dense={dense}
-                      ></OrderRow>
-                    );
-                  })}
-              </TableBody>
-            ) : null}
+            {renderTablecontent()}
           </Table>
         </TableContainer>
         <TablePagination

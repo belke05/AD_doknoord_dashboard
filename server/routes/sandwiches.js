@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { get_sandwiches, delete_sandwich } = require("../database/sandwiches");
+const {
+  get_sandwiches,
+  delete_sandwich,
+  patch_sandwich
+} = require("../database/sandwiches");
 
 // GET ALL ORDERS
-
 router.get("*", (req, res, next) => {
   get_sandwiches()
-    .then(bestellingen => {
-      console.log(bestellingen, "here");
-      res.json({ bestellingen });
+    .then(sandwiches => {
+      res.json({ sandwiches });
     })
     .catch(err => {
       console.error(err);
@@ -34,19 +36,16 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.patch("/:id", (req, res, next) => {
-  const orderIds = req.params.id;
-  const orderIdsArr = JSON.parse(orderIds).orderIds;
-  console.log(orderIdsArr);
-  delete_sandwich(orderIdsArr)
+  const sandwichId = req.params.id;
+  const changes = req.body;
+  patch_sandwich(sandwichId, changes)
     .then(() => {
-      console.log("succesful deletion");
       res.status(200).json({
-        message: "succesfully deleted orders",
-        orders: orderIdsArr
+        message: "succesfully changed sandwich"
       });
     })
     .catch(err => {
-      console.error(err, "error during delete");
+      console.error(err, "error during change");
       res.status(500);
     });
 });

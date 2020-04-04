@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/kasboek";
-import TableTemplate from "../table/TableTemplate";
+import TableTemplate from "../template/table/TableTemplate";
 
 const headCells = [
   { id: "datum", numeric: false, disablePadding: true, label: "datum" },
-  { id: "omzet", numeric: true, disablePadding: false, label: "omzet" },
+  { id: "totaal", numeric: true, disablePadding: false, label: "omzet" },
   {
     id: "cheque_delhaize",
     numeric: true,
@@ -12,7 +12,7 @@ const headCells = [
     label: "cheque delhaize"
   },
   {
-    id: "tegoedbon",
+    id: "tegoebon",
     numeric: true,
     disablePadding: false,
     label: "tegoedbon"
@@ -30,7 +30,7 @@ const headCells = [
     label: "leeggoedbon"
   },
   {
-    id: "banccontact",
+    id: "bancontact",
     numeric: true,
     disablePadding: false,
     label: "bancontact"
@@ -97,7 +97,7 @@ const headCells = [
     label: "accordenred"
   },
   {
-    id: "totaal",
+    id: "som_totaal",
     numeric: true,
     disablePadding: false,
     label: "totaal"

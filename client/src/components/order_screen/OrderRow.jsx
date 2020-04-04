@@ -6,9 +6,9 @@ import Sandwich_List from "./Sandwich_list";
 import { Button, TableCell, TableRow, Checkbox } from "../../modules/material";
 
 export default function Order({
-  order,
+  row,
+  headCells,
   handleClick,
-  isItemSelected,
   labelId,
   selectedItems
 }) {
@@ -18,52 +18,59 @@ export default function Order({
     <>
       <TableRow
         hover
-        onClick={event => handleClick(event, order.id)}
+        onClick={event => handleClick(event, row.id)}
         role="checkbox"
-        aria-checked={isSelected(order.id)}
+        aria-checked={isSelected(row.id)}
         tabIndex={-1}
-        key={order.name}
-        selected={isSelected(order.id)}
+        key={row.name}
+        selected={isSelected(row.id)}
       >
         <TableCell padding="checkbox">
           <Checkbox
-            checked={isSelected(order.id)}
+            checked={isSelected(row.id)}
             inputProps={{ "aria-labelledby": labelId }}
           />
         </TableCell>
-        <TableCell component="th" id={labelId} scope="row" padding="none">
-          {order.firstName} {order.lastName}
-        </TableCell>
-        <TableCell align="right">{order.price}</TableCell>
-        <TableCell align="right">{order.pickupDate}</TableCell>
-        <TableCell align="right">{order.pickupTime}</TableCell>
-        <TableCell align="right">{readableDate(order.timeOrder)}</TableCell>
-        <TableCell align="right">
-          <Button
-            style={{
-              color: showDetails ? "white" : "white",
-              backgroundColor: showDetails ? "red" : "green"
-            }}
-            onClick={e => {
-              e.stopPropagation();
-              setShowDetails(!showDetails);
-            }}
-          >
-            {showDetails ? "verberg details" : "toon"}
-          </Button>
-        </TableCell>
+        {headCells.map(({ id, numeric }) => {
+          const cellid = id;
+          if (cellid !== "details") {
+            return (
+              <TableCell
+                component="th"
+                align={numeric ? "center" : "left"}
+                id={labelId}
+                scope="row"
+                padding="none"
+              >
+                {cellid !== "timeOrder"
+                  ? row[cellid]
+                  : readableDate(row[cellid])}
+              </TableCell>
+            );
+          }
+          return (
+            <TableCell align="right">
+              <Button
+                style={{
+                  color: showDetails ? "white" : "white",
+                  backgroundColor: showDetails ? "red" : "green"
+                }}
+                onClick={e => {
+                  e.stopPropagation();
+                  setShowDetails(!showDetails);
+                }}
+              >
+                {showDetails ? "verberg details" : "toon"}
+              </Button>
+            </TableCell>
+          );
+        })}
       </TableRow>
-      {/* {emptyRows > 0 && (
-        <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-          <TableCell colSpan={7} />
-        </TableRow>
-      )} */}
       {showDetails && (
         <TableRow>
           <TableCell align="right" colSpan={7}>
             <div className="sandwich_list_wrapper">
-              {order.orders.map(sandwich => {
-                console.log("sandwich", sandwich);
+              {row.orders.map(sandwich => {
                 return (
                   <Sandwich_List
                     key={sandwich.id}

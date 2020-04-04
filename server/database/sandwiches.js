@@ -32,6 +32,12 @@ const get_sandwiches = async () => {
 //   //   .delete();
 // };
 
+const patch_sandwich = async (sandwichId, changes) => {
+  let sandwichRef = db.collection("sandwiches").doc(sandwichId);
+  let updateSingle = await sandwichRef.update(changes);
+  return updateSingle;
+};
+
 const delete_sandwich = async orderIds => {
   let ordersRef = db.collection("sandwiches");
   orderIds = [].concat(orderIds);
@@ -44,5 +50,6 @@ const delete_sandwich = async orderIds => {
 
 module.exports = {
   get_sandwiches,
-  delete_sandwich
+  delete_sandwich,
+  patch_sandwich
 };

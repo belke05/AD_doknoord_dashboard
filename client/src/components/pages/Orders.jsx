@@ -1,28 +1,29 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../api/orders";
-import TableTemplate from "../table/TableTemplate";
+
+import TableTemplate from "../template/table/TableTemplate";
 
 const headCells = [
-  { id: "lastName", numeric: false, disablePadding: true, label: "naam" },
+  { id: "firstName", numeric: false, disablePadding: true, label: "voornaam" },
+  { id: "lastName", numeric: false, disablePadding: true, label: "achternaam" },
   { id: "price", numeric: true, disablePadding: false, label: "te betalen" },
   {
     id: "pickupDate",
     numeric: true,
     disablePadding: false,
-    label: "datum afhalen"
+    label: "afhaaldatum"
   },
   {
     id: "pickupTime",
     numeric: true,
     disablePadding: false,
-    label: "tijdstip afhalen"
+    label: "afhaaltijdstip"
   },
   {
     id: "timeOrder",
     numeric: true,
     disablePadding: false,
-    label: "tijdstip bestelling"
+    label: "bestellingtijdstip"
   },
   { id: "details", numeric: true, disablePadding: false, label: "details" }
 ];
@@ -30,19 +31,17 @@ const headCells = [
 export default function Orders(props) {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    api.getOrders().then(bestelling => {
-      setOrders(bestelling);
-    });
+    api.getOrders().then(bestelling => setOrders(bestelling));
   }, []);
 
   return (
     <div>
       <TableTemplate
         rows={orders}
-        orderbyName="tijdstip afhalen"
-        tableName="orders"
         setOrders={setOrders}
         headCells={headCells}
+        orderbyColumn="tijdstip afhalen"
+        tableName="orders"
       ></TableTemplate>
     </div>
   );

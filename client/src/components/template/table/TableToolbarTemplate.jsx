@@ -11,9 +11,9 @@ import {
   IconButton,
   lighten,
   makeStyles
-} from "../../modules/material";
+} from "../../../modules/material";
 
-import { enchancedTableToolbarStyle } from "../../styles/material/makeStyles";
+import { enchancedTableToolbarStyle } from "../../../styles/material/makeStyles";
 
 const useToolbarStyles = makeStyles(enchancedTableToolbarStyle);
 

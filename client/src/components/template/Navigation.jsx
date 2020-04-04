@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { withRouter } from "react-router-dom";
-import { navigationTheme } from "../styles/material/makeStyles";
+import { navigationTheme } from "../../styles/material/makeStyles";
 
 import {
   Drawer,
@@ -23,9 +23,9 @@ import {
   CloudUploadIcon,
   makeStyles,
   useTheme
-} from "../modules/material";
+} from "../../modules/material";
 
-import routemapping from "../data/routemapping.json";
+import routemapping from "../../data/routemapping.json";
 
 const useStyles = makeStyles(navigationTheme);
 
@@ -93,20 +93,25 @@ function PersistentDrawerLeft(props) {
         <Divider />
         <List>
           {["bestellingen broodjes", "bestellingen schotels", "kasboek"].map(
-            (text, index) => (
-              <ListItem
-                button
-                key={text}
-                onClick={handleRoute.bind(this, text)}
-              >
-                <ListItemIcon>
-                  {index === 0 ? <ViewListIcon /> : null}
-                  {index === 1 ? <ViewListIcon /> : null}
-                  {index === 2 ? <ViewListIcon /> : null}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
+            (text, index) => {
+              if (index === 1) {
+                return;
+              }
+              return (
+                <ListItem
+                  button
+                  key={text}
+                  onClick={handleRoute.bind(this, text)}
+                >
+                  <ListItemIcon>
+                    {index === 0 ? <ViewListIcon /> : null}
+                    {index === 1 ? <ViewListIcon /> : null}
+                    {index === 2 ? <ViewListIcon /> : null}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              );
+            }
           )}
         </List>
         <Divider />

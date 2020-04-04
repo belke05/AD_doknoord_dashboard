@@ -1,11 +1,11 @@
 import serviceFactory from "./handlers";
-const service = serviceFactory("orders");
+const service = serviceFactory("sandwiches");
 
 export default {
   service: service,
   getSandwiches() {
     return service.get("").then(res => {
-      const sandwiches = res.data.sanwdiches;
+      const sandwiches = res.data.sandwiches;
       return sandwiches;
     });
   },
