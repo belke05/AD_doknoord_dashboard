@@ -8,48 +8,28 @@ const get_sandwiches = async () => {
   return sandwiches;
 };
 
-// const delete_order = async orderIds => {
-//   let ordersRef = db.collection("orders");
-//   console.log("order ids", orderIds);
-//   const snapshot = await ordersRef.where("id", "in", orderIds).get();
-//   var batch = db.batch();
-//   snapshot.docs.map(doc => {
-//     console.log(doc.id, "doc id");
-//     console.log("doc date", doc.data());
-//   });
-//   snapshot.forEach(function(doc) {
-//     console.log(doc.ref);
-//     // For each doc, add a delete operation to the batch
-//     batch.delete(doc.ref);
-//   });
-//   // Commit the batch
-//   await batch.commit();
-
-//   return;
-//   // return db
-//   //   .collection("orders")
-//   //   .doc(orderId)
-//   //   .delete();
-// };
-
 const patch_sandwich = async (sandwichId, changes) => {
-  let sandwichRef = db.collection("sandwiches").doc(sandwichId);
+  let sandwichRef = db.collection("broodjes").doc(sandwichId);
   let updateSingle = await sandwichRef.update(changes);
   return updateSingle;
 };
 
-const delete_sandwich = async orderIds => {
-  let ordersRef = db.collection("sandwiches");
-  orderIds = [].concat(orderIds);
-  for (let i = 0; i < orderIds.length; i++) {
-    const id = orderIds[i];
-    await ordersRef.doc(id).delete();
-  }
-  return;
+const delete_sandwich = async sandwichName => {
+  await db
+    .collection("broodjes")
+    .doc(sandwichName)
+    .delete();
+  return "deleted";
+};
+
+const create_sandwich = async values => {
+  await db.collection("broodjes").add(values);
+  return "created";
 };
 
 module.exports = {
   get_sandwiches,
   delete_sandwich,
-  patch_sandwich
+  patch_sandwich,
+  create_sandwich
 };

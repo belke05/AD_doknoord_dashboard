@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   makeStyles,
   Alert,
@@ -18,32 +18,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Alerter({ type, text }) {
+export default function Alerter({ type, text, open, setOpen, time }) {
   const classes = useStyles();
-  const [open, setOpen] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setOpen();
+    }, Number(time));
+  }, []);
 
-  function handleClose() {
+  const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   return (
-    <div className={classes.root}>
-      <Dialog
-        open={open}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogContent>
-          <Alert variant="outlined" severity={type}>
-            {text}
-          </Alert>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={open}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <Alert severity={type}>{text}</Alert>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          OK
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }

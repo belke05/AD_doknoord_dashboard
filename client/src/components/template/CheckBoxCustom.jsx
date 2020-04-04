@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Checkbox, FormControlLabel } from "../modules/material";
+import { Checkbox, FormControlLabel } from "../../modules/material";
 
-export default function CheckBoxCustom() {
-  const [isMonth, setIsMonth] = useState(false);
+export default function CheckBoxCustom({ setFormValues, formValues }) {
   return (
     <FormControlLabel
       control={
         <Checkbox
           onChange={() => {
-            setIsMonth(!isMonth);
+            setFormValues({ ...formValues, isMonth: !formValues.isMonth });
           }}
-          checked={isMonth}
+          checked={formValues.isMonth}
           value="isMonth"
           color="primary"
           inputProps={{ "aria-label": "secondary checkbox" }}

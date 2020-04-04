@@ -18,6 +18,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import IconButton from "@material-ui/core/IconButton";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
@@ -47,8 +48,17 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fab from "@material-ui/core/Fab";
+import Input from "@material-ui/core/Input";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import BarChartIcon from "@material-ui/icons/BarChart";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
 export {
+  BarChartIcon,
+  ListSubheader,
+  Input,
+  AddCircleIcon,
+  AddCircleOutlineIcon,
   CircularProgress,
   ListItemSecondaryAction,
   CloudUploadIcon,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import api from "../../api/sandwich";
-
+import CheckBoxCustom from "../template/CheckBoxCustom";
 import {
   DialogActions,
   DialogContent,
@@ -28,21 +28,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function EditForm({ open, sandwich, setOpen }) {
+export default function CreateForm({ open, setOpen }) {
   const classes = useStyles();
   const [newIngredient, setNewIngredient] = useState("");
   const [formValues, setFormValues] = useState({
-    name: sandwich.name.trim(),
-    price: sandwich.price,
-    ingredients: sandwich.ingredients,
-    isMonth: sandwich.isMonth
+    name: "",
+    price: 0,
+    ingredients: [],
+    isMonth: false
   });
 
   /* HANDLERS */
-
+  console.log(open);
   const handleSend = () => {
-    console.log(sandwich);
-    api.editSandwich(formValues);
+    console.log(formValues);
+    api.addSandwich(formValues);
   };
   const handleChange = e => {
     const value = e.target.value;
@@ -76,9 +76,9 @@ export default function EditForm({ open, sandwich, setOpen }) {
       }}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Aanpassing</DialogTitle>
+      <DialogTitle id="form-dialog-title">Toevoegen</DialogTitle>
       <DialogContent>
-        <DialogContentText>aanpassing van het broodje</DialogContentText>
+        <DialogContentText>toevoegen broodje</DialogContentText>
         <form className={classes.root} noValidate autoComplete="off">
           <div>
             <TextField
@@ -87,7 +87,6 @@ export default function EditForm({ open, sandwich, setOpen }) {
               value={formValues.name}
               onChange={handleChange}
               autoFocus
-              disabled
             />
             <TextField
               label="prijs"
@@ -132,6 +131,13 @@ export default function EditForm({ open, sandwich, setOpen }) {
               </IconButton>
             </div>
           </div>
+          <div>
+            <CheckBoxCustom
+              checkbox-id="sandwich-month"
+              setFormValues={setFormValues}
+              formValues={formValues}
+            ></CheckBoxCustom>
+          </div>
         </form>
       </DialogContent>
       <DialogActions>
@@ -144,7 +150,7 @@ export default function EditForm({ open, sandwich, setOpen }) {
           annuleer
         </Button>
         <Button onClick={handleSend} color="primary">
-          pas aan
+          voeg toe
         </Button>
       </DialogActions>
     </Dialog>

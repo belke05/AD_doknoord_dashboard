@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   get_sandwiches,
   delete_sandwich,
+  create_sandwich,
   patch_sandwich
 } = require("../database/sandwiches");
 
@@ -18,15 +19,12 @@ router.get("*", (req, res, next) => {
 });
 
 router.delete("/:id", (req, res, next) => {
-  const orderIds = req.params.id;
-  const orderIdsArr = JSON.parse(orderIds).orderIds;
-  console.log(orderIdsArr);
-  delete_order(orderIdsArr)
+  const sandwichId = req.params.id;
+  delete_sandwich(sandwichId)
     .then(() => {
       console.log("succesful deletion");
       res.status(200).json({
-        message: "succesfully deleted orders",
-        orders: orderIdsArr
+        message: "succesfully deleted orders"
       });
     })
     .catch(err => {
@@ -35,10 +33,10 @@ router.delete("/:id", (req, res, next) => {
     });
 });
 
-router.patch("/:id", (req, res, next) => {
-  const sandwichId = req.params.id;
+router.patch("", (req, res, next) => {
   const changes = req.body;
-  patch_sandwich(sandwichId, changes)
+  console.log(changes);
+  patch_sandwich(changes.name, changes)
     .then(() => {
       res.status(200).json({
         message: "succesfully changed sandwich"
@@ -46,6 +44,20 @@ router.patch("/:id", (req, res, next) => {
     })
     .catch(err => {
       console.error(err, "error during change");
+      res.status(500);
+    });
+});
+
+router.post("", (req, res, next) => {
+  const newSandwich = req.body;
+  create_sandwich(newSandwich)
+    .then(() => {
+      res.status(200).json({
+        message: "succesfully created sandwich"
+      });
+    })
+    .catch(err => {
+      console.error(err, "error during creation");
       res.status(500);
     });
 });

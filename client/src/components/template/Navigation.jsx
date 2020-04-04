@@ -22,7 +22,8 @@ import {
   EditIcon,
   CloudUploadIcon,
   makeStyles,
-  useTheme
+  useTheme,
+  BarChartIcon
 } from "../../modules/material";
 
 import routemapping from "../../data/routemapping.json";
@@ -68,7 +69,7 @@ function PersistentDrawerLeft(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            dashboard delhaize dok noord
+            delhaize dok noord
           </Typography>
         </Toolbar>
       </AppBar>
@@ -116,12 +117,28 @@ function PersistentDrawerLeft(props) {
         </List>
         <Divider />
         <List>
+          {["dashboard kasboek"].map((text, index) => {
+            return (
+              <ListItem
+                button
+                key={text}
+                onClick={handleRoute.bind(this, text)}
+              >
+                <ListItemIcon>
+                  {index === 0 ? <BarChartIcon /> : null}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            );
+          })}
+        </List>
+        <Divider />
+        <List>
           {[
             "aanpassen broodjes",
             "aanpassen schotels",
             "aanpassen afbeeldingen",
-            "aanpassen teksten",
-            "testing"
+            "aanpassen teksten"
           ].map((text, index) => (
             <ListItem button key={text} onClick={handleRoute.bind(this, text)}>
               <ListItemIcon>
@@ -129,7 +146,6 @@ function PersistentDrawerLeft(props) {
                 {index === 1 ? <EditIcon /> : null}
                 {index === 2 ? <EditIcon /> : null}
                 {index === 3 ? <EditIcon /> : null}
-                {index === 4 ? <EditIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

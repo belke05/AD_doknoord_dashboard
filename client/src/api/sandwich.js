@@ -11,13 +11,21 @@ export default {
   },
 
   deleteSandwich(id) {
+    console.log("id", id);
     return service.delete(`/${id}`).then(res => {
       return res.data;
     });
   },
 
-  editSandwich(id) {
-    return service.patch(`/${id}`).then(res => {
+  editSandwich(updatedSandwich) {
+    console.log("changes", updatedSandwich);
+    return service.patch("", updatedSandwich).then(res => {
+      return res.data;
+    });
+  },
+
+  addSandwich(newSandwich) {
+    return service.post("", newSandwich).then(res => {
       return res.data;
     });
   }
