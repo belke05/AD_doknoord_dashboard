@@ -45,7 +45,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 export {
+  CircularProgress,
   ListItemSecondaryAction,
   CloudUploadIcon,
   Dialog,

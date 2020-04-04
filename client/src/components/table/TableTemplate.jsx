@@ -15,6 +15,7 @@ import EnhancedTableToolbar from "./TableToolbarTemplate";
 import EnhancedTableHead from "./TableHeadTemplate";
 import KasRow from "../kasboek_screen/KasRow";
 import OrderRow from "../order_screen/OrderRow";
+import ProgressSpinner from "../template/ProgressSpinner";
 
 /* utils */
 import {
@@ -73,6 +74,7 @@ export default function TableTemplate(props) {
         selected.slice(selectedIndex + 1)
       );
     }
+    console.log(selected);
     setSelected(newSelected);
   };
 
@@ -109,95 +111,90 @@ export default function TableTemplate(props) {
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   if (!rows || !rows.length) {
-    return <div>{`momenteel geen gegevens voor ${tableName}`}</div>;
-  } else {
-    return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <EnhancedTableToolbar
-            numSelected={selected.length}
-            title={tableName}
-          />
-          <TableContainer>
-            <Table
-              className={classes.table}
-              aria-labelledby={tableName}
-              size={dense ? "small" : "medium"}
-              aria-label="enhanced table"
-            >
-              <EnhancedTableHead
-                headCells={headCells}
-                classes={classes}
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={rows.length}
-              />
-              {tableName === "kas" ? (
-                <TableBody>
-                  {stableSort(rows, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      const isItemSelected = isSelected(row.datum);
-                      const labelId = `enhanced-table-checkbox-${index}`;
-                      return (
-                        <KasRow
-                          row={row}
-                          classes={classes}
-                          handleClick={handleClick}
-                          key={row.datum}
-                          selectedItems={selected}
-                          selected={isItemSelected}
-                          labelId={labelId}
-                          emptyRows={emptyRows}
-                          dense={dense}
-                        ></KasRow>
-                      );
-                    })}
-                </TableBody>
-              ) : tableName === "orders" ? (
-                <TableBody>
-                  {stableSort(rows, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      const isItemSelected = isSelected(row.id);
-                      const labelId = `enhanced-table-checkbox-${index}`;
-                      return (
-                        <OrderRow
-                          sandwiches={rows}
-                          order={row}
-                          classes={classes}
-                          handleClick={handleClick}
-                          key={row.id}
-                          selectedItems={selected}
-                          selected={isItemSelected}
-                          labelId={labelId}
-                          emptyRows={emptyRows}
-                          dense={dense}
-                        ></OrderRow>
-                      );
-                    })}
-                </TableBody>
-              ) : null}
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Paper>
-        <FormControlLabel
-          control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Dense padding"
-        />
-      </div>
-    );
+    return <ProgressSpinner waittext={`laden van ${tableName} tabel`} />;
   }
+  return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <EnhancedTableToolbar numSelected={selected.length} title={tableName} />
+        <TableContainer>
+          <Table
+            className={classes.table}
+            aria-labelledby={tableName}
+            size={dense ? "small" : "medium"}
+            aria-label="enhanced table"
+          >
+            <EnhancedTableHead
+              headCells={headCells}
+              classes={classes}
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            {tableName === "kas" ? (
+              <TableBody>
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.datum);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+                    return (
+                      <KasRow
+                        row={row}
+                        classes={classes}
+                        handleClick={handleClick}
+                        key={row.datum}
+                        selectedItems={selected}
+                        selected={isItemSelected}
+                        labelId={labelId}
+                        emptyRows={emptyRows}
+                        dense={dense}
+                      ></KasRow>
+                    );
+                  })}
+              </TableBody>
+            ) : tableName === "orders" ? (
+              <TableBody>
+                {stableSort(rows, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const isItemSelected = isSelected(row.id);
+                    const labelId = `enhanced-table-checkbox-${index}`;
+                    return (
+                      <OrderRow
+                        order={row}
+                        classes={classes}
+                        handleClick={handleClick}
+                        key={row.id}
+                        selectedItems={selected}
+                        selected={isItemSelected}
+                        labelId={labelId}
+                        emptyRows={emptyRows}
+                        dense={dense}
+                      ></OrderRow>
+                    );
+                  })}
+              </TableBody>
+            ) : null}
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+      <FormControlLabel
+        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        label="Dense padding"
+      />
+    </div>
+  );
 }

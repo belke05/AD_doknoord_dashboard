@@ -9,7 +9,7 @@ export default function UploadKasboek(props) {
 
   function handleClick() {
     console.log(fileinput.current.files);
-    if (fileinput.current.files.length > 1) {
+    if (fileinput.current.files.length >= 1) {
       for (let i = 0; i < fileinput.current.files.length; i++) {
         const file = fileinput.current.files[i];
         handleFile(file);
@@ -26,6 +26,7 @@ export default function UploadKasboek(props) {
       const ws = wb.Sheets[wsname];
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 }); // convert
       const kasrowJSON = handleCSV(data);
+      console.log("handle file");
       api
         .postCSV(kasrowJSON)
         .then(res => {

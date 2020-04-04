@@ -5,7 +5,8 @@ export default function KasRow({
   row,
   isItemSelected,
   labelId,
-  selectedItems
+  selectedItems,
+  handleClick
 }) {
   const isSelected = name => selectedItems.indexOf(name) !== -1;
 
@@ -14,6 +15,7 @@ export default function KasRow({
       <TableRow key={row.datum}>
         <TableCell padding="checkbox">
           <Checkbox
+            onClick={e => handleClick(e, row.datum)}
             checked={isSelected(row.datum)}
             inputProps={{ "aria-labelledby": labelId }}
           />

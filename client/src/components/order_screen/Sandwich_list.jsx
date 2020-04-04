@@ -19,7 +19,10 @@ function ListItemLink(props) {
 
 export default function Sandwich_List({ sandwich }) {
   const classes = useStyles();
-
+  console.log("sandwich", sandwich);
+  if (!sandwich) {
+    return <div>no orders at the moment</div>;
+  }
   return (
     <div
       className={classes.root}

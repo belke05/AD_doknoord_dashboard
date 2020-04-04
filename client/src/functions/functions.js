@@ -1,5 +1,20 @@
+const tableheadMap = {
+  omzet: "totaal",
+  "cheque delhaize": "cheque_delhaize",
+  "op krediet": "op_krediet",
+  totaal: "som_totaal",
+  datum: "datum_dateformat"
+};
+
 function descendingComparator(a, b, orderBy) {
-  console.log("comparisson", orderBy, a, b);
+  console.log("comparisson", orderBy, a[orderBy], b[orderBy], a);
+  orderBy = checkMapping(orderBy);
+  if (orderBy === "datum_dateformat") {
+    const { dateA, dateB } = convertDate(a[orderBy], b[orderBy]);
+    a[orderBy] = dateA;
+    b[orderBy] = dateB;
+    console.log(a[orderBy], b[orderBy]);
+  }
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -44,6 +59,19 @@ function filterOutIds(orders, orderids) {
   const new_orders = orders.filter(({ id }) => !orderids.includes(id));
   console.log(new_orders, "new_orders");
   return new_orders;
+}
+
+function convertDate(dateA, dateB) {
+  console.log(dateA, dateB);
+  return { dateA: dateA._seconds, dateB: dateB._seconds };
+}
+
+function checkMapping(orderBy) {
+  if (tableheadMap[orderBy]) {
+    return tableheadMap[orderBy];
+  } else {
+    return orderBy;
+  }
 }
 
 module.exports = {

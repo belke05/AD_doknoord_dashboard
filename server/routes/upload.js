@@ -43,7 +43,6 @@ router.post("/text/:text_optie", (req, res, next) => {
 });
 
 router.post("/kasboek", (req, res, next) => {
-  console.log("req body", req.body);
   const newRow = req.body.newKasboekRow;
   console.log(newRow);
   uploadKasboekRow(newRow)

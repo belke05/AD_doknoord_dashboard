@@ -114,9 +114,19 @@ const enchancedTableToolbarStyle = theme => ({
   }
 });
 
+const spinnerStyle = theme => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2)
+    }
+  }
+});
+
 export {
   navigationTheme,
   enchancedTableStyle,
   sandwichListStyle,
-  enchancedTableToolbarStyle
+  enchancedTableToolbarStyle,
+  spinnerStyle
 };

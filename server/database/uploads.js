@@ -19,6 +19,7 @@ const uploadText = async (textOptie, newText) => {
 
 const uploadKasboekRow = async newRow => {
   console.log(newRow);
+  newRow.datum_dateformat = new Date(newRow.datum_dateformat);
   db.collection("kasboek")
     .add(newRow)
     .then(ref => {

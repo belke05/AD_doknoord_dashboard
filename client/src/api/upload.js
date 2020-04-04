@@ -1,23 +1,5 @@
-import axios from "axios";
-
-console.log(process.env.NODE_ENV);
-
-const service = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "production"
-      ? "/api/uploads"
-      : `http://${window.location.hostname}:5000/api/uploads`,
-  withCredentials: true
-});
-
-const errHandler = err => {
-  console.error(err);
-  if (err.response && err.response.data) {
-    console.error("API response", err.response.data);
-    throw err.response.data.message;
-  }
-  throw err;
-};
+import serviceFactory from "./handlers";
+const service = serviceFactory("uploads");
 
 export default {
   service: service,
@@ -32,30 +14,21 @@ export default {
         }
       })
       .then(res => {
-        console.log("a reponse in api frontend", res);
         return res.data;
-      })
-      .catch(errHandler);
+      });
   },
 
   postText(text, text_option) {
     console.log(text, "file", text_option, "option");
-    return service
-      .post(`/text/${text_option}`, { text: text })
-      .then(res => {
-        console.log("a reponse in api frontend", res);
-        return res.data;
-      })
-      .catch(errHandler);
+    return service.post(`/text/${text_option}`, { text: text }).then(res => {
+      return res.data;
+    });
   },
 
   postCSV(json_info) {
-    return service
-      .post(`/kasboek`, { newKasboekRow: json_info })
-      .then(res => {
-        console.log("a reponse in api frontend", res);
-        return res.data;
-      })
-      .catch(errHandler);
+    console.log("about to post");
+    return service.post(`/kasboek`, { newKasboekRow: json_info }).then(res => {
+      return res.data;
+    });
   }
 };

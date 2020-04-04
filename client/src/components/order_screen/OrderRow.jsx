@@ -6,7 +6,6 @@ import Sandwich_List from "./Sandwich_list";
 import { Button, TableCell, TableRow, Checkbox } from "../../modules/material";
 
 export default function Order({
-  sandwiches,
   order,
   handleClick,
   isItemSelected,
@@ -15,7 +14,6 @@ export default function Order({
 }) {
   const [showDetails, setShowDetails] = useState(false);
   const isSelected = name => selectedItems.indexOf(name) !== -1;
-
   return (
     <>
       <TableRow
@@ -64,7 +62,8 @@ export default function Order({
         <TableRow>
           <TableCell align="right" colSpan={7}>
             <div className="sandwich_list_wrapper">
-              {sandwiches.map(sandwich => {
+              {order.orders.map(sandwich => {
+                console.log("sandwich", sandwich);
                 return (
                   <Sandwich_List
                     key={sandwich.id}
