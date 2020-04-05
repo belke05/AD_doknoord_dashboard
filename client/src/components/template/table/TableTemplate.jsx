@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 /* components */
 import {
@@ -7,8 +7,6 @@ import {
   TableContainer,
   TablePagination,
   Paper,
-  FormControlLabel,
-  Switch,
   makeStyles
 } from "../../../modules/material";
 import EnhancedTableToolbar from "./TableToolbarTemplate";
@@ -23,7 +21,8 @@ import {
   stableSort,
   filterOutIds
 } from "../../../functions/functions";
-import api from "../../../api/orders";
+import apiOrders from "../../../api/orders";
+import apiKas from "../../../api/kasboek";
 
 /* styling */
 import { enchancedTableStyle } from "../../../styles/material/makeStyles";
@@ -31,17 +30,17 @@ const useStyles = makeStyles(enchancedTableStyle);
 
 export default function TableTemplate(props) {
   const classes = useStyles();
-  const { rows, orderbyColumn, tableName, headCells } = props;
+  const { rows, orderbyColumn, tableName, headCells, setRows } = props;
 
   /* states */
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState(orderbyColumn);
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState(orderbyColumn);
+  const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(true);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  /* handlers */
+  /* HANDLERS */
   const handleRequestSort = (event, orderColumn) => {
     const isAsc = orderBy === orderColumn && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
@@ -50,11 +49,8 @@ export default function TableTemplate(props) {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelected = rows.map(n => {
-        return n.id;
-      });
+      const newSelected = rows.map(n => n.id);
       setSelected(newSelected);
-      return;
     } else {
       setSelected([]);
     }
@@ -63,7 +59,6 @@ export default function TableTemplate(props) {
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
@@ -76,7 +71,6 @@ export default function TableTemplate(props) {
         selected.slice(selectedIndex + 1)
       );
     }
-    console.log(selected);
     setSelected(newSelected);
   };
 
@@ -89,33 +83,38 @@ export default function TableTemplate(props) {
     setPage(0);
   };
 
-  const handleChangeDense = event => {
-    setDense(event.target.checked);
+  const handleDelete = () => {
+    if (tableName === "kas") {
+      Promise.all(selected.map(id => apiKas.deleteKasboek(id)))
+        .then(v => {
+          console.log("all selection deleted");
+          setRows(rows.filter(row => !selected.includes(row.id)));
+          setSelected([]);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } else if (tableName === "orders") {
+      Promise.all(selected.map(id => apiOrders.deleteOrder(id)))
+        .then(v => {
+          console.log("all selection deleted");
+          setRows(rows.filter(row => !selected.includes(row.id)));
+          setSelected([]);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   };
 
-  const handleDelete = () => {
-    api
-      .deleteOrder({ orderIds: selected })
-      .then(info => {
-        const new_orders = filterOutIds(props.orders, info.orders);
-        const new_selected = selected.filter(id => !info.orders.includes(id));
-        props.setOrders(new_orders);
-        setSelected(new_selected);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  };
+  /* END HANDLERS */
 
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  if (!rows || !rows.length) {
-    return <ProgressSpinner waittext={`laden van ${tableName} tabel`} />;
-  }
-
+  // render The table content
   const renderTablecontent = () => {
     return (
       <TableBody>
@@ -131,12 +130,12 @@ export default function TableTemplate(props) {
                   headCells={headCells}
                   classes={classes}
                   handleClick={handleClick}
-                  key={row.datum}
+                  key={row.datum + index}
                   selectedItems={selected}
                   selected={isItemSelected}
                   labelId={labelId}
                   emptyRows={emptyRows}
-                  dense={dense}
+                  dense={true}
                 ></KasRow>
               );
             } else if (tableName === "orders") {
@@ -160,10 +159,23 @@ export default function TableTemplate(props) {
     );
   };
 
+  // if no info render the spinner
+  if (!rows) {
+    return <ProgressSpinner waittext={`laden van ${tableName} tabel`} />;
+  }
+
+  if (!rows.length) {
+    return <ProgressSpinner waittext={`geen info in ${tableName} tabel`} />;
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} title={tableName} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          title={tableName}
+          handleDelete={handleDelete}
+        />
         <TableContainer>
           <Table
             className={classes.table}
@@ -190,14 +202,11 @@ export default function TableTemplate(props) {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
+          labelRowsPerPage="rijen per pagina"
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 }

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { get_orders, delete_order } = require("../database/orders");
+const { getOrders, deleteOrder } = require("../database/orders");
 
 // GET ALL ORDERS
 
 router.get("*", (req, res, next) => {
-  get_orders()
+  getOrders()
     .then(bestellingen => {
       res.json({ bestellingen });
     })
@@ -14,16 +14,14 @@ router.get("*", (req, res, next) => {
     });
 });
 
-router.delete("/:orderIds", (req, res, next) => {
-  const orderIds = req.params.orderIds;
-  const orderIdsArr = JSON.parse(orderIds).orderIds;
-  console.log(orderIdsArr);
-  delete_order(orderIdsArr)
+router.delete("/:orderId", (req, res, next) => {
+  const orderIds = req.params.orderId;
+  deleteOrder(orderIds)
     .then(() => {
       console.log("succesful deletion");
       res.status(200).json({
         message: "succesfully deleted orders",
-        orders: orderIdsArr
+        orders: orderIds
       });
     })
     .catch(err => {

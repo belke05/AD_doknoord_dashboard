@@ -127,7 +127,6 @@ export default function Kasboek() {
     api
       .getKasboek()
       .then(res => {
-        console.log(res, "response");
         const rijen = res
           .map(rij => {
             rij.dateTypeDate = convertToDateType(rij);
@@ -184,6 +183,7 @@ export default function Kasboek() {
       </Filter>
       <TableTemplate
         rows={kasboek}
+        setRows={setKasboek}
         orderbyName="datum"
         tableName="kas"
         headCells={headCells}

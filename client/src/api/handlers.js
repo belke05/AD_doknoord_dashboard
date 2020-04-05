@@ -34,19 +34,21 @@ export default function axiosFactory(servicename) {
         : `http://${window.location.hostname}:5000${urlpoint}`,
     withCredentials: true
   });
-  service.interceptors.response.use(
-    response => {
-      console.log("====START RES LOGGING====");
-      logger(response);
-      console.log("====END RES LOGGING====");
-      return response;
-    },
-    error => {
-      console.log("====START ERROR LOGGING====");
-      errHandler(error);
-      console.log("====END ERROR LOGGING====");
-      return Promise.reject(error);
-    }
-  );
+  if (process.env.NODE_ENV === "development") {
+    service.interceptors.response.use(
+      response => {
+        console.log("====START RES LOGGING====");
+        logger(response);
+        console.log("====END RES LOGGING====");
+        return response;
+      },
+      error => {
+        console.log("====START ERROR LOGGING====");
+        errHandler(error);
+        console.log("====END ERROR LOGGING====");
+        return Promise.reject(error);
+      }
+    );
+  }
   return service;
 }

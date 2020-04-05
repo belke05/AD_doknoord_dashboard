@@ -38,7 +38,7 @@ export default function Orders(props) {
     <div>
       <TableTemplate
         rows={orders}
-        setOrders={setOrders}
+        setRows={setOrders}
         headCells={headCells}
         orderbyColumn="tijdstip afhalen"
         tableName="orders"

@@ -53,9 +53,23 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Avatar from "@material-ui/core/Avatar";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import FolderIcon from "@material-ui/icons/Folder";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 export {
+  FolderIcon,
+  Snackbar,
+  MuiAlert,
+  Avatar,
+  ListItemAvatar,
   GetAppIcon,
+  Card,
+  CardContent,
   BarChartIcon,
   ListSubheader,
   Input,

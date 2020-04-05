@@ -10,8 +10,8 @@ export default {
     });
   },
 
-  deleteOrder(idJSON) {
-    return service.delete(`/${JSON.stringify(idJSON)}`).then(res => {
+  deleteOrder(orderId) {
+    return service.delete(`/${orderId}`).then(res => {
       return res.data;
     });
   }
