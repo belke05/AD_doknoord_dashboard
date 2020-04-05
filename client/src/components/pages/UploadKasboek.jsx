@@ -53,11 +53,13 @@ export default function UploadKasboek(props) {
             message: "succesvolle upload",
             severity: "success"
           });
+          setfileList([]);
+          fileinput.current.value = "";
         })
         .catch(err =>
           setAlert({
             open: true,
-            message: "niet succesvolle",
+            message: "niet succesvolle upload",
             severity: "error"
           })
         );

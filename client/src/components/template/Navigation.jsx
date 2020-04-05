@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { withRouter } from "react-router-dom";
 import { navigationTheme } from "../../styles/material/makeStyles";
@@ -23,8 +23,10 @@ import {
   CloudUploadIcon,
   makeStyles,
   useTheme,
-  BarChartIcon
+  BarChartIcon,
+  TextField
 } from "../../modules/material";
+import { Button } from "../../modules/bootstrap";
 
 import routemapping from "../../data/routemapping.json";
 
@@ -34,7 +36,8 @@ function PersistentDrawerLeft(props) {
   console.log(props.history);
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [new_text, set_new_text] = useState("");
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -48,6 +51,10 @@ function PersistentDrawerLeft(props) {
     console.log("handle", name, routemapping, routemapping[name]);
     props.history.push(`/${routemapping[name]}`);
   };
+
+  function handleClick(params) {
+    window.localStorage.setItem("doknoordadminpass", new_text);
+  }
 
   return (
     <div className={classes.root}>
@@ -161,6 +168,23 @@ function PersistentDrawerLeft(props) {
           ))}
         </List>
         <Divider />
+        <div>
+          <TextField
+            style={{ marginTop: "10px" }}
+            id="outlined-basic"
+            label="adminpass"
+            variant="outlined"
+            value={new_text}
+            onChange={e => set_new_text(e.target.value)}
+          />
+          <Button
+            style={{ marginTop: "10px" }}
+            disabled={new_text.length > 5 ? false : true}
+            onClick={handleClick}
+          >
+            zend
+          </Button>
+        </div>
       </Drawer>
       <main
         className={clsx(classes.content, {
