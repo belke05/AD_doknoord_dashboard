@@ -38,22 +38,3 @@ export default function KasRow({
     </>
   );
 }
-
-{
-  /* <TableCell align="center">{row.totaal}</TableCell>
-<TableCell align="center">{row.cheque_delhaize}</TableCell>
-<TableCell align="center">{row.tegoebon}</TableCell>
-<TableCell align="center">{row.publiciteitsbon}</TableCell>
-<TableCell align="center">{row.leeggoedbon}</TableCell>
-<TableCell align="center">{row.bancontact}</TableCell>
-<TableCell align="center">{row.op_krediet}</TableCell>
-<TableCell align="center">{row.andere}</TableCell>
-<TableCell align="center">{row.amex}</TableCell>
-<TableCell align="center">{row.visa}</TableCell>
-<TableCell align="center">{row.mastercard}</TableCell>
-<TableCell align="center">{row.maestro}</TableCell>
-<TableCell align="center">{row.visa_electron}</TableCell>
-<TableCell align="center">{row.sodexo}</TableCell>
-<TableCell align="center">{row.payfair}</TableCell>
-<TableCell align="center">{row.accordenred}</TableCell> */
-}

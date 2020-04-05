@@ -52,8 +52,10 @@ import Input from "@material-ui/core/Input";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import BarChartIcon from "@material-ui/icons/BarChart";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import GetAppIcon from "@material-ui/icons/GetApp";
 
 export {
+  GetAppIcon,
   BarChartIcon,
   ListSubheader,
   Input,

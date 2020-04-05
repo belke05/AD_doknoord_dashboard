@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import handleCSV from "../../functions/handlecsv";
+import { creatJSONfromCSV } from "../../functions/handlecsv";
 import api from "../../api/upload";
 import { Button } from "../../modules/bootstrap";
 import * as XLSX from "xlsx";
@@ -25,7 +25,7 @@ export default function UploadKasboek(props) {
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 }); // convert
-      const kasrowJSON = handleCSV(data);
+      const kasrowJSON = creatJSONfromCSV(data);
       console.log("handle file");
       api
         .postCSV(kasrowJSON)
